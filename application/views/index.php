@@ -1,0 +1,40 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="resources/js/jQuery.js"></script>
+        <script type="text/javascript" src="resources/js/index.js"></script>
+        <link rel="stylesheet" href="resources/css/mtgdc.css"/>
+    </head>
+    <body>
+        <div id="container">
+            <div class="title">
+                <h1>QuickMTG Presents:</h1>
+                <h2>The MTG Draft Calculator</h2>
+            </div>
+            <div class="shadow"></div>
+            <div class="content">
+                <form action="newDraft.php" method="post">
+                    Rounds are best of:
+                    <input name="bestOf" type="text" value="3"/>
+                    <br/>
+                    <br/>
+                    Enter the names of the draft participants:
+                    <ol id="nameList">
+                        <li class="last"><input type="text"/></li>
+                    </ol>
+                    <input type="submit" value="Start Draft!"/>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
