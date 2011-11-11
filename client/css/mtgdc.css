@@ -1,0 +1,49 @@
+/* 
+    Document   : mtgdc
+    Created on : Nov 10, 2011, 10:54:52 PM
+    Author     : Erin
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+body {
+    background:  url('../img/BlasphemousAct.png') no-repeat top left black;
+    color: white;
+    padding: 30px 0px 0px 50px;
+}
+
+h1{
+    text-shadow: black 2px 2px 2px;
+}
+h2 {
+    text-shadow: black 2px 2px 2px;
+}
+li {
+    text-shadow: black 2px 2px 2px;
+
+}
+
+div.contentBackground {
+    position: absolute;
+    width: 400px;
+    height: 500px;
+    background: black;
+    opacity: 0.6;
+    border-radius: 5px;
+}
+div.content {
+    position: relative;
+    padding: 15px;
+        width: 400px;
+
+
+}
