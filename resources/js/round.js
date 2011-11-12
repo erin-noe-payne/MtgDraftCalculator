@@ -4,10 +4,10 @@
  */
 
 $(function() {
-    var data = function() {
-        data.dropped = new Array();
-        data.scores = new Array();
-    }
+    var data = function(){}
+    data.dropped = new Array();
+    data.scores = new Array();
+    
     var bestOf=3;
     
     $('.deleteButton').live('click', function() {
@@ -24,11 +24,7 @@ $(function() {
             $.each($('.numberField'), function(){
             
                 });
-            var players=[];
-            $.each($('.name'), function() {
-                data.scores.push($(this).val())
-            })
-        
+            
             $('[name="scores"]').val(JSON.stringify(data));
         }
     })
@@ -51,7 +47,7 @@ $(function() {
         return validData;
     }
     function dropPlayer(){
-        data.dropped.push();
+        data.dropped.push('a');
         alert('dropped');
     }
 })
