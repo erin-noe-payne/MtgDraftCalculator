@@ -36,8 +36,14 @@ h2 {
 li {
     text-shadow: black 2px 2px 2px;
 }
-.deleteButton {
-    margin-left: -25px;
+#bestOf {
+    width: 1em;
+}
+.deleteButtonContainer{
+    position: absolute;
+    padding-top: 3px;
+    height: 100%;
+    display: inline-block !important;
 }
 .name {
 }

@@ -13,8 +13,9 @@ $(function() {
     })
     
     $('.name').live('blur', function() {
-        if($(this).find('input').val() == '') {
-            removeLi($(this));
+        if($(this).val() == '') {
+            var li = $(this).closest('li');
+            removeLi(li);
         }
     })
     
@@ -22,15 +23,24 @@ $(function() {
         var li = $(this).closest('li');
         removeLi(li);
     });
+    $('#draftForm').submit(function(){
+        var players=[];
+        $.each($('.name'), function() {
+            players.push($(this).val());
+        })
+        $('#field_players').val(JSON.stringify(players));
+    })
     
     /*
      * Functionality
      */
-    function addLi(li){
-        $(li).removeClass('last').addClass('name');
-        $(li).append($('<button type="button" class="deleteButton">X</button>'))
+    function addLi(input){
+        var li = input.closest('li');
+        $(input).removeClass('last').addClass('name');
+        var button = $('<div class="deleteButtonContainer"><div class="deleteButton ui-icon-close ui-icon"></div></div>')
+        $(li).append(button);
         
-        var $listItem = $('<li class="last"><input class="name"></input></li>').hide();
+        var $listItem = $('<li><input class="last"></input></li>').hide();
         $('#nameList').append($listItem);
         $listItem.animate({
             opacity: 'toggle', 

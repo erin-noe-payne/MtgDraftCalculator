@@ -37,8 +37,6 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-$route['newDraft'] = "mtgdc/newDraft";
-$route['round/(:any)'] = "mtgdc/round";
 $route['default_controller'] = "mtgdc";
 $route['404_override'] = '';
 

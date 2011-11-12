@@ -25,15 +25,32 @@ class Mtgdc extends CI_Controller {
     }
 
     public function newDraft() {
-        $this->load->view('newDraft');
+        /*
+         * POST Data: 
+         * bestOF - int data for # of games per match
+         * players - stringified json array of player names, i.e. ["Erin", "Chris", "Sean"]
+         */
+
+
+        /*
+         * This draft object will be created, attached to users' session, and passed to the newDraft view and each round view.
+         * You do not need to deal with json or strings at all, the view will deal with the php object.
+         */
+        $draft = null;
+
+        $this->load->view('newDraft', $draft);
     }
 
     public function round() {
-        $this->load->view('round');
+        $draft = null;
+
+        $this->load->view('round', $draft);
     }
 
     public function scoreSheet() {
-        $this->load->view('scoreSheet');
+        $draft = null;
+
+        $this->load->view('scoreSheet', $draft);
     }
 
 }
