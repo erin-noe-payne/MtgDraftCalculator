@@ -4,7 +4,7 @@
  */
 
 $(function() {
-    
+        
     /*
      * Event Listeners
      */
@@ -13,7 +13,7 @@ $(function() {
     })
     
     $('.name').live('blur', function() {
-        if($(this).val() == '') {
+        if($.trim($(this).val()) == '') {
             var li = $(this).closest('li');
             removeLi(li);
         }
@@ -26,7 +26,9 @@ $(function() {
     $('#draftForm').submit(function(){
         var players=[];
         $.each($('.name'), function() {
-            players.push($(this).val());
+            if($.trim($(this).val()) != '') {
+                players.push($(this).val());
+            }
         })
         $('#field_players').val(JSON.stringify(players));
     })

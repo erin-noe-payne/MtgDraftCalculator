@@ -21,7 +21,9 @@ class Mtgdc extends CI_Controller {
      * @see http://codeigniter.com/user_guide/general/urls.html
      */
     public function index() {
+        $this->load->view('header');
         $this->load->view('index');
+        $this->load->view('footer');
     }
 
     public function newDraft() {
@@ -37,14 +39,17 @@ class Mtgdc extends CI_Controller {
          * You do not need to deal with json or strings at all, the view will deal with the php object.
          */
         $draft = null;
-
+        $this->load->view('header');
         $this->load->view('newDraft', $draft);
+        $this->load->view('footer');
     }
 
     public function round() {
         $draft = null;
 
+        $this->load->view('header');
         $this->load->view('round', $draft);
+        $this->load->view('footer');
     }
 
     public function scoreSheet() {

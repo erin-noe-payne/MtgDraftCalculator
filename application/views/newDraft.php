@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -13,28 +12,39 @@
  */
 ?>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="<?= base_url() ?>resources/js/jQuery.js"></script>
-        <script type="text/javascript" src="<?= base_url() ?>resources/js/jquery-ui.js"></script>
-        <script type="text/javascript" src="<?= base_url() ?>resources/js/index.js"></script>
-        <link rel="stylesheet" href="<?= base_url() ?>resources/css/mtgdc.css"/>
-        <link rel="stylesheet" href="<?= base_url() ?>resources/css/overcast/jquery-ui.css"/>
 
-    </head>
-    <body>
+<body>
 
-        <div id="container">
-            <div class="title">
-                <h2>Seating</h2>
+    <div id="container">
+        <div class="title">
+            <h2>Seating</h2>
+        </div>
+        <div class="shadow"></div>
+        <div class="content">
+            <div class="contentSection">
+                <div class="contentLeft">
+                    <h4>Order</h4>
+                    <p>Players will sit around a table in the order displayed.
+                </div>
+                <div class="contentRight">
+                    <ol>
+                        <?php
+                        $players = array('Erin', 'Chris', 'Sean');
+                        
+                        foreach ($players as $name) {
+                            printf('<li>%s</li>', $name);
+                        }
+                        ?>
+                    </ol>
+                </div>
             </div>
-            <div class="shadow"></div>
-            <div class="content">
-                <button>Start Round 1</button>
+
+            <div class="buttonBar">
+                <form action="<?= base_url() ?>index.php/Mtgdc/round" method="get">
+                    <input type="submit" value="Go to Round 1"></input>
+                </form>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+</body>
+

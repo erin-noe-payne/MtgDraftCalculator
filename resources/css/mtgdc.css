@@ -1,65 +1,121 @@
 /* 
-    Document   : mtgdc
-    Created on : Nov 10, 2011, 10:54:52 PM
-    Author     : Erin
-    Description:
-        Purpose of the stylesheet follows.
+Base CSS
 */
-
-/* 
-   TODO customize this sample style
-   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
-*/
-
 root { 
     display: block;
 }
 
 body {
-    background:  url('../img/BlasphemousAct.png') no-repeat top left black;
+    background:  url('../img/BlasphemousAct.png') no-repeat top left #0F0F0F;
+;
     color: white;
     padding: 30px 50px 0px 50px;
 }
+
+/* 
+Text & header formatting
+*/
+h1{
+    text-shadow: black 2px 2px 2px;
+    font-size: 2em;
+    font-weight: normal;
+    font-family: 'Bevan', serif;
+    display: inline-block;
+    color: lightgray;
+}
+h2 {
+    font-size: 2em;
+    font-weight: normal;
+    text-shadow: black 2px 2px 2px;
+    font-family: 'Marvel', sans-serif;
+    display: inline-block;
+}
+h4 {
+    margin: 0;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: lightgrey;
+}
+p {
+    margin: .5em 0 0 0;
+    font-family: sans-serif;
+    font-size: .75em;
+    color:white;
+}
+
+/*
+Div & Container formatting
+*/
 #container {
     width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
-
-h1{
-    text-shadow: black 2px 2px 2px;
-}
-h2 {
-    text-shadow: black 2px 2px 2px;
-    font-family: Gill, Helvetica, sans-serif;
-}
-li {
-    text-shadow: black 2px 2px 2px;
-}
-#bestOf {
-    width: 1em;
-}
-.deleteButtonContainer{
-    position: absolute;
-    padding-top: 3px;
-    height: 100%;
-    display: inline-block !important;
-}
-.name {
-}
 .shadow {
     position: absolute;
     width: 600px;
-    height: 450px;
+    height: 350px;
     background: black;
     opacity: 0.6;
     border-radius: 5px;
+    z-index: -1;
 }
-div.content {
+.content {
     position: relative;
-    padding: 15px;
+    padding: 15px 15px 45px 15px;
     width: 600px;
     min-height:300px;
     border-radius: 5px;
     border: 1px solid darkgrey;
+}
+.contentSection {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.contentLeft {
+    width: 35%;
+    padding-right: 50px;
+    display: inline-block;
+    float: left;
+}
+.contentRight {
+    width: 50%;
+    display: inline-block;
+    float:left
+}
+.contentSection:after{
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.buttonBar {
+    position: absolute;
+    bottom: 15px;
+}
+.title {
+    margin-left: 15px;
+    margin-bottom: -32px;
+}
+.deleteButtonContainer {
+    display: inline-block;
+    position: relative;
+    bottom: -4px;
+}
+
+/*
+Element formatting
+*/
+.contentRight ol {
+    margin: 0px 0px 0px -42px;
+}
+li {
+    text-shadow: black 2px 2px 2px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: .75em;
+    color: lightgray;
+}
+.numberField {
+    width: 2em;
+    text-align: center;
 }
