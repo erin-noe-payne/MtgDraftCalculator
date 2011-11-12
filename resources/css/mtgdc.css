@@ -40,6 +40,11 @@ p {
     font-family: sans-serif;
     font-size: .75em;
     color:white;
+    display: inline-block;
+}
+.alignRight {
+    text-align: right;
+    float:right;
 }
 
 /*
@@ -119,3 +124,11 @@ li {
     width: 2em;
     text-align: center;
 }
+table {
+    margin-left: 15px;
+}
+
+
+/*
+Table Formatting
+*/
