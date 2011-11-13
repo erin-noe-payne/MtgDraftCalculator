@@ -29,10 +29,10 @@
                 <div class="contentRight">
                     <ol>
                         <?php
-                        $players = array('Erin', 'Chris', 'Sean');
+                        $players = $draft->players;
                         
-                        foreach ($players as $name) {
-                            printf('<li>%s</li>', $name);
+                        foreach ($players as $player) {
+                            printf('<li>%s</li>', $player->name);
                         }
                         ?>
                     </ol>

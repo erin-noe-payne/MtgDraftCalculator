@@ -1,17 +1,17 @@
 <?php
 include 'player_model.php';
-class Player_model extends CI_Model 
+class Draft_model extends CI_Model 
 {
-    var $nextPlayerID;
+    private $nextPlayerID;
     
     var $bestOfGames;
     var $players;
     
-    function __construct($bestOfGames)
+    function __construct()
     {
         parent::__construct();
         
-        $this->bestOfGames = $bestOfGames;
+        $this->bestOfGames = 3;
         
         $this->nextPlayerID = 1;
         
@@ -20,7 +20,7 @@ class Player_model extends CI_Model
     
     function addPlayer($name)
     {
-        array_push($this->players, new Player_model($nextPlayerID, $name));
+        array_push($this->players, new Player_model($this->nextPlayerID, $name));
         $this->nextPlayerID++;
     }
 }
