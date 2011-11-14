@@ -1,5 +1,9 @@
 <body>
-    <script type="text/javacript">BESTOF=<?=$draft->bestOfGames?></script>
+    <script>
+        //PHP data dump
+        var BESTOF=<?=$draft->bestOfGames?>;
+        var PLAYERS=<?=  json_encode($draft->players)?>;
+    </script>
     <script type="text/javascript" src="<?= base_url() ?>resources/js/round.js"></script>
 
     <div id="container">
