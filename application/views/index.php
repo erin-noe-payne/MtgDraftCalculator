@@ -8,6 +8,7 @@
             <h2>Draft Calculator</h2>
         </div>
         <div class="content">
+            <div title="Help" class="helpButtonContainer"><div class="helpButton ui-icon-help ui-icon"></div></div>
             <form id="draftForm" action="<?= base_url() ?>index.php/Mtgdc/newDraft" method="post">
 
                 <div class="contentSection">

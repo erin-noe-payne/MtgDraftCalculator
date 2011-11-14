@@ -1,16 +1,27 @@
 <body>
     <script>
         //PHP data dump
-        var BESTOF=<?=$draft->bestOfGames?>;
-        var PLAYERS=<?=  json_encode($draft->players)?>;
+        var BESTOF=<?= $draft->bestOfGames ?>;
+        var PLAYERS=<?= json_encode($draft->players) ?>;
     </script>
     <script type="text/javascript" src="<?= base_url() ?>resources/js/round.js"></script>
 
     <div id="container">
         <div class="title">
-            <h1>Round</h1><h2><?= 'One' ?></h2>
+            <h1>Round</h1>
+            <h2>
+                <?php
+                $number_to_text = array('Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten');
+                try {
+                    echo $number_to_text[$draft->roundNumber];
+                } catch (Exception $e) {
+                    echo $draft->roundNumber;
+                }
+                ?>
+            </h2>
         </div>
         <div class="content">
+            <div title="Help" class="helpButtonContainer"><div class="helpButton ui-icon-help ui-icon"></div></div>
             <div class="contentSection">
                 <h4> Pairings </h4>
                 <p>Play out matches according to the following pairings. Enter results before moving on to the next round.</p>
@@ -43,8 +54,8 @@
                                     '<tr class="dataRow">
                                 <td><div title="Drop player" class="deleteButtonContainer"><div class="deleteButton ui-icon-close ui-icon"></div></div><p class="alignRight">%s</p></td>
                                 <td><input class="numberField" value="%d" disabled="disabled"/></td>
-                                <td></td>
-                                <td></td>
+                                <td><input class="numberField" disabled="disabled"/></td>
+                                <td><input class="numberField" disabled="disabled"/></td>
                                 <td><p>%s</p><div title="Drop player" class="deleteButtonContainer alignRight"></div></div></td>
                                 </tr>', $opponent1, $wins, 'BYE'
                             );

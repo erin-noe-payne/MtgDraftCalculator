@@ -65,7 +65,7 @@ Div & Container formatting
     border: 1px solid darkgrey;
 }
 .contentSection {
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 30px;
 }
 .contentLeft {
@@ -100,6 +100,16 @@ Div & Container formatting
     bottom: -4px;
 }
 .deleteButtonContainer:hover {
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.helpButtonContainer {
+    position:absolute;
+    top: 15px;
+    right: 15px;
+}
+.helpButtonContainer:hover {
     background: white;
     border-radius: 50%;
     cursor: pointer;
