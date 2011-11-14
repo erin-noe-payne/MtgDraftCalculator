@@ -73,6 +73,7 @@ class Mtgdc extends CI_Controller {
 
         //This is how to pass the draft object to the view
         $data['draft'] = $draft;
+        //save the draft in the session
         $_SESSION['draft'] = $draft;
 
         $this->load->view('header');
@@ -83,8 +84,20 @@ class Mtgdc extends CI_Controller {
     public function round() {
         session_start();
         //TODO - check for valid session / data, handle appropriately.
-        $data['draft'] = $_SESSION['draft'];
-
+        $draft = $_SESSION['draft'];
+        
+        
+        //sort the draft for matchmaking (do this before updating the round)
+        $draft->sortForMatchmaking();
+        //update what round it is
+        $draft->roundNumber++;
+        
+        
+        //set the draft object in the data array
+        $data['draft'] = $draft;
+        //save the draft in the session
+        $_SESSION['draft'] = $draft;
+        
         $this->load->view('header');
         $this->load->view('round', $data);
         $this->load->view('footer');
