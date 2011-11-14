@@ -1,11 +1,11 @@
 <body>
+    <script type="text/javacript">BESTOF=<?=$draft->bestOfGames?></script>
     <script type="text/javascript" src="<?= base_url() ?>resources/js/round.js"></script>
 
     <div id="container">
         <div class="title">
             <h1>Round</h1><h2><?= 'One' ?></h2>
         </div>
-        <div class="shadow"></div>
         <div class="content">
             <div class="contentSection">
                 <h4> Pairings </h4>
@@ -19,11 +19,11 @@
                         <th><p class="alignRight">Opponent 1</p></th><th><p>W</p></th><th><p>D</p></th><th><p>W</p></th><th><p>Opponent 2</p></th>
                     </tr>
                     <?php
-                    $players = array('Erin', 'Chris', 'Sean');
+                    $players = $draft->players;
                     for ($i = 0; $i < count($players); $i++) {
-                        $opponent1 = $players[$i];
+                        $opponent1 = $players[$i]->name;
                         if (++$i < count($players)) {
-                            $opponent2 = $players[$i];
+                            $opponent2 = $players[$i]->name;
                             printf(
                                     '<tr class="dataRow">
                                 <td><div title="Drop player" class="deleteButtonContainer"><div class="deleteButton ui-icon-close ui-icon"></div></div><p class="alignRight">%s</p></td>

@@ -6,6 +6,7 @@ class Draft_model extends CI_Model
     
     var $bestOfGames;
     var $players;
+    var $roundNumber;
     
     function __construct()
     {
