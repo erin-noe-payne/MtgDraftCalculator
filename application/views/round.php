@@ -1,4 +1,29 @@
-<body>
+<?php
+//Random background image selector
+$extList = array();
+$extList['gif'] = 'image/gif';
+$extList['jpg'] = 'image/jpeg';
+$extList['jpeg'] = 'image/jpeg';
+$extList['png'] = 'image/png';
+
+$folder = ($_SERVER['DOCUMENT_ROOT']) . 'resources/img/Backgrounds/';
+$fileList = array();
+$handle = opendir($folder);
+while (false !== ( $file = readdir($handle) )) {
+    $file_info = pathinfo($file);
+    if (isset($extList[strtolower($file_info['extension'])])) {
+        $fileList[] = $file;
+    }
+}
+closedir($handle);
+
+if (count($fileList) > 0) {
+    $imageNumber = time() % count($fileList);
+    $img = $fileList[$imageNumber];
+}
+?>
+
+<body style="background-image: url(<?= base_url() ?>resources/img/Backgrounds/<?= $img ?>);">
     <script>
         //PHP data dump
         var BESTOF=<?= $draft->bestOfGames ?>;
@@ -12,9 +37,9 @@
             <h2>
                 <?php
                 $number_to_text = array('Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten');
-                try {
+                if ($draft->roundNumber <= 10)
                     echo $number_to_text[$draft->roundNumber];
-                } catch (Exception $e) {
+                else {
                     echo $draft->roundNumber;
                 }
                 ?>
@@ -56,7 +81,7 @@
                                 <td><input class="numberField" value="%d" disabled="disabled"/></td>
                                 <td><input class="numberField" disabled="disabled"/></td>
                                 <td><input class="numberField" disabled="disabled"/></td>
-                                <td><p>%s</p><div title="Drop player" class="deleteButtonContainer alignRight"></div></div></td>
+                                <td><p>%s</p></div></div></td>
                                 </tr>', $opponent1, $wins, 'BYE'
                             );
                         }
@@ -66,15 +91,29 @@
             </div>
 
             <div class="buttonBar">
-                <form action="<?= base_url() ?>index.php/Mtgdc/round" method="post">
+                <form class="buttonForm" action="<?= base_url() ?>index.php/Mtgdc/round" method="post">
                     <input name="scores" type="hidden"/>
-                    <input type="submit" value="Go to Round <?= 2 ?>"/>
+                    <input type="submit" value="Go to Round <?= $draft->roundNumber + 1 ?>"/>
                 </form>
                 <form action="<?= base_url() ?>index.php/Mtgdc/scoreSheet" method="post">
                     <input name="scores" type="hidden"/>
                     <input type="submit" value="End Draft"/>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <div id="help">
+        <div id="helpContainer">
+            <img class="buttonForm" src="<?= base_url() ?>resources/img/roundHelp.png"/>
+            <br/><h4>Use the score card to fill out match results.  </h4>
+            <p>The number fields, from left to right, represent player 1 wins, draws, and player 2 wins. In the example shown here:
+            <ul>
+                <li>Erin has beat Sean 2-0</li>
+                <li>Natasha beat Lindsay in the first game, and the second ended in a draw</li>
+                <li>Caitlin beat Justin 2-1</li>
+                <li>Chris was given a bye</li>
+            </ul>
         </div>
     </div>
 </body>

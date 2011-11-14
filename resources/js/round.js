@@ -8,12 +8,12 @@ $(function() {
     data.dropped = new Array();
     data.scores = new Array();
     var WINCONDITION = Math.ceil(BESTOF/2);
-        
+    
     $('.deleteButton').live('click', function() {
         var index = $('.deleteButton').index($(this));
         var name = PLAYERS[index].name;
-        if(confirm('Are you sure you wish to drop player '+name+' from the draft? \
-                    The player who drops will lose the match. This action cannot be undone.')) {
+        if(confirm('Are you sure you wish to drop player '+name+
+            ' from the draft? The player who drops will lose the match. This action cannot be undone.')) {
             dropPlayer($(this), index);
         }
     });
@@ -44,6 +44,12 @@ $(function() {
             $('[name="scores"]').val(JSON.stringify(scores));
         }
     })
+    $('.helpButton').click(function(){
+        $('#help').fadeIn('fast');
+    })
+    $('#help').click(function() {
+       $(this).fadeOut('fast'); 
+    });
     
     function dataValid() {
         var validData = true;
@@ -88,7 +94,7 @@ $(function() {
     function dropPlayer(button, index){
         PLAYERS[index].dropped = true;
 
-        button.hide();
+        button.parent().hide();
         var row = button.closest('tr');
         row.addClass('dropped');
         var fields = row.find('.numberField');
@@ -110,4 +116,6 @@ $(function() {
         return isNaN(val)?0:val;
     }
 })
+
+
 

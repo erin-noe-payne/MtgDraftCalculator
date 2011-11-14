@@ -5,7 +5,6 @@
             <h2>Seating</h2>
         </div>
         <div class="content">
-            <div title="Help" class="helpButtonContainer"><div class="helpButton ui-icon-help ui-icon"></div></div>
             <div class="contentSection">
                 <div class="contentLeft">
                     <h4>Order</h4>

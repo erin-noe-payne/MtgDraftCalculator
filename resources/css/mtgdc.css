@@ -6,7 +6,7 @@ root {
 }
 
 body {
-    background:  url('../img/BlasphemousAct2.png') no-repeat top left #0F0F0F;
+    background:  url('../img/Backgrounds/BlasphemousAct.png') no-repeat top left #0F0F0F;
     color: white;
     padding: 30px 50px 0px 50px;
 }
@@ -14,13 +14,14 @@ body {
 /* 
 Text & header formatting
 */
+
 h1{
     text-shadow: black 2px 2px 2px;
     font-size: 2em;
     font-weight: normal;
     font-family: 'Bevan', serif;
     display: inline-block;
-    color: lightgray;
+    color: #CCCCCC;
 }
 h2 {
     font-size: 2em;
@@ -33,7 +34,7 @@ h4 {
     text-shadow: black 2px 2px 2px;
     margin: 0;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    color: lightgrey;
+    color: #CCCCCC;
 }
 p {
     margin: .5em 0 0 0;
@@ -63,10 +64,12 @@ Div & Container formatting
     background: url('../img/transparentBlack.png') repeat;
     border-radius: 5px;
     border: 1px solid darkgrey;
+    z-index: 1;
 }
 .contentSection {
     margin-top: 0px;
     margin-bottom: 30px;
+    width: 100%;
 }
 .contentLeft {
     width: 35%;
@@ -93,25 +96,37 @@ Div & Container formatting
 .title {
     margin-left: 15px;
     margin-bottom: -32px;
+    z-index: 2;
 }
 .deleteButtonContainer {
+    height:13px;
+    width:13px;
     display: inline-block;
     position: relative;
     bottom: -4px;
+    border-radius: 50%;
+    background:#4E6555;
+    border:2px solid white;
 }
 .deleteButtonContainer:hover {
-    background: white;
-    border-radius: 50%;
+    background: #769881;
     cursor: pointer;
+}
+.deleteButton{
+    position: relative;
+    left: -2px;
+    top: -2px;
 }
 .helpButtonContainer {
     position:absolute;
-    top: 15px;
-    right: 15px;
+    top: 16px;
+    right: 16px;
+    border-radius: 50%;
+    background:#4E6555;
+    border:2px solid white;
 }
 .helpButtonContainer:hover {
-    background: white;
-    border-radius: 50%;
+    background: #769881;
     cursor: pointer;
 }
 
@@ -125,7 +140,7 @@ li {
     text-shadow: black 2px 2px 2px;
     font-family: 'Helvetica', 'Arial', sans-serif;
     font-size: .75em;
-    color: lightgray;
+    color: white;
 }
 .numberField {
     width: 2em;
@@ -135,8 +150,11 @@ table {
     margin-left: 30px;
     border: 1px solid transparent;
 }
-form {
-    display:inline-block;
+.name{
+    margin-right: 5px;
+}
+.buttonBar *{
+    display: inline-block;
 }
 
 
@@ -145,4 +163,37 @@ Table Formatting
 */
 .invalidData{
     background: #9F3E35;
+}
+
+/*
+* Help formatting
+*/
+#help{
+    display: none;
+    background: rgba(15, 15, 15, 0.8);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left:0px;
+    z-index: 10;
+}
+#helpContainer {
+    background: black;
+    width: 400px;
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid white;
+    padding: 15px;
+    -moz-box-shadow: 10px 10px 5px black;
+    -webkit-box-shadow: 10px 10px 5px black;
+    box-shadow: 4px 4px 4px black;
+}
+#help img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid white;
+
 }

@@ -8,13 +8,12 @@
             <h2>Draft Calculator</h2>
         </div>
         <div class="content">
-            <div title="Help" class="helpButtonContainer"><div class="helpButton ui-icon-help ui-icon"></div></div>
             <form id="draftForm" action="<?= base_url() ?>index.php/Mtgdc/newDraft" method="post">
 
                 <div class="contentSection">
                     <div class="contentLeft">
                         <h4>Best of</h4>
-                        <p>The number of games to be played in each match.</p>
+                        <p>How many games can be played in each match?</p>
                     </div>
                     <div class="contentRight">
                         <input class="numberField" name="bestOf" type="text" value="3"/>
