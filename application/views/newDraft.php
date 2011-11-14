@@ -1,25 +1,9 @@
-<?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
-
-<?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
-
-
 <body>
 
     <div id="container">
         <div class="title">
             <h2>Seating</h2>
         </div>
-        <div class="shadow"></div>
         <div class="content">
             <div class="contentSection">
                 <div class="contentLeft">

@@ -6,8 +6,7 @@ root {
 }
 
 body {
-    background:  url('../img/BlasphemousAct.png') no-repeat top left #0F0F0F;
-;
+    background:  url('../img/BlasphemousAct2.png') no-repeat top left #0F0F0F;
     color: white;
     padding: 30px 50px 0px 50px;
 }
@@ -31,6 +30,7 @@ h2 {
     display: inline-block;
 }
 h4 {
+    text-shadow: black 2px 2px 2px;
     margin: 0;
     font-family: 'Helvetica', 'Arial', sans-serif;
     color: lightgrey;
@@ -55,20 +55,12 @@ Div & Container formatting
     margin-left: auto;
     margin-right: auto;
 }
-.shadow {
-    position: absolute;
-    width: 600px;
-    height: 350px;
-    background: black;
-    opacity: 0.6;
-    border-radius: 5px;
-    z-index: -1;
-}
 .content {
     position: relative;
     padding: 15px 15px 45px 15px;
     width: 600px;
     min-height:300px;
+    background: url('../img/transparentBlack.png') repeat;
     border-radius: 5px;
     border: 1px solid darkgrey;
 }
@@ -107,6 +99,11 @@ Div & Container formatting
     position: relative;
     bottom: -4px;
 }
+.deleteButtonContainer:hover {
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
 
 /*
 Element formatting
@@ -125,10 +122,17 @@ li {
     text-align: center;
 }
 table {
-    margin-left: 15px;
+    margin-left: 30px;
+    border: 1px solid transparent;
+}
+form {
+    display:inline-block;
 }
 
 
 /*
 Table Formatting
 */
+.invalidData{
+    background: #9F3E35;
+}

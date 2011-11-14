@@ -1,6 +1,4 @@
 
-
-
 <body>
     <script type="text/javascript" src="<?= base_url() ?>resources/js/index.js"></script>
 
@@ -9,7 +7,6 @@
             <h1>QuickMTG</h1>
             <h2>Draft Calculator</h2>
         </div>
-        <div class="shadow"></div>
         <div class="content">
             <form id="draftForm" action="<?= base_url() ?>index.php/Mtgdc/newDraft" method="post">
 
