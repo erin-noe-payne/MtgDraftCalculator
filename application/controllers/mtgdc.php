@@ -86,11 +86,16 @@ class Mtgdc extends CI_Controller {
         //TODO - check for valid session / data, handle appropriately.
         $draft = $_SESSION['draft'];
         
+        if($draft->roundNumber != 0)
+        {
+            $scores = json_decode($_POST['scores']);
+            
+            $draft->updateScores($scores);
+        }
         
-        //sort the draft for matchmaking (do this before updating the round)
+        
+        //sort the draft for matchmaking
         $draft->sortForMatchmaking();
-        //update what round it is
-        $draft->roundNumber++;
         
         
         //set the draft object in the data array
@@ -103,6 +108,7 @@ class Mtgdc extends CI_Controller {
         $this->load->view('footer');
     }
 
+    
     public function scoreSheet() {
         $draft = null;
 

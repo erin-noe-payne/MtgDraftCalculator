@@ -11,7 +11,7 @@ class Player_model extends CI_Model
     var $gameCount; //the number of games a player has played in
     var $byeCount; //the number of byes a player has had (shouldn't really ever be more than 1)
     var $dropped; //bool value indicating whether a player has dropped out
-    var $oponents; //array of players that this player has played against
+    var $opponents; //array of players that this player has played against
 
     function __construct($id, $name)
     {
@@ -28,9 +28,34 @@ class Player_model extends CI_Model
 
         $this->dropped = false;
 
-        $this->oponents = array();
+        $this->opponents = array();
     }
     
+    function updateScore($score)
+    {
+        $wins = $score[0];
+        $draws = $score[1];
+        $losses = $score[2];
+        $dropping = $score[3];
+        
+        
+        if($wins == 2)
+        {
+            $this->matchPoints += 3;
+        }
+        else if(($wins == 1 && $losses == 1) || ($wins == 0 && $losses == 0 && $draws == 1))
+        {
+            $this->matchPoints += 1;
+        }
+        $this->matchCount++;
+        $this->gamePoints += ($wins*3)+($draws*1);
+        $this->gameCount += $wins+$losses+$draws;
+        
+        $this->dropped = $dropping;
+        
+    }
+    
+    //returns true if this player is ranked higher than $otherPlayer
     function isHigherThan($otherPlayer)
     {
         if($this->matchPoints > $otherPlayer->matchPoints)
@@ -38,6 +63,20 @@ class Player_model extends CI_Model
             return true;
         }
         
+    }
+    
+    //returns true if this player has played $otherPlayer
+    function hasPlayed($otherPlayer)
+    {
+        foreach($this->opponents as $opponentID)
+        {
+            if($otherPlayer->id == $opponentID)
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
 }
