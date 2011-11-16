@@ -96,13 +96,13 @@ class Mtgdc extends CI_Controller {
         
         //sort the draft for matchmaking
         $draft->sortForMatchmaking();
-        
-        
+
+
         //set the draft object in the data array
         $data['draft'] = $draft;
         //save the draft in the session
         $_SESSION['draft'] = $draft;
-        
+
         $this->load->view('header');
         $this->load->view('round', $data);
         $this->load->view('footer');
@@ -110,9 +110,13 @@ class Mtgdc extends CI_Controller {
 
     
     public function scoreSheet() {
-        $draft = null;
+        session_start();
+        $draft = $_SESSION['draft'];
+        $data['draft'] = $draft;
 
-        $this->load->view('scoreSheet', $draft);
+        $this->load->view('header');
+        $this->load->view('scoreSheet', $data);
+        $this->load->view('footer');
     }
 
 }

@@ -25,7 +25,7 @@ if (count($fileList) > 0) {
 
 <body style="background-image: url(<?= base_url() ?>resources/img/Backgrounds/<?= $img ?>);">
     <script>
-        //PHP data dump
+        //PHP -> JS data dump
         var BESTOF=<?= $draft->bestOfGames ?>;
         var PLAYERS=<?= json_encode($draft->players) ?>;
     </script>
@@ -49,40 +49,49 @@ if (count($fileList) > 0) {
             <div title="Help" class="helpButtonContainer"><div class="helpButton ui-icon-help ui-icon"></div></div>
             <div class="contentSection">
                 <h4> Pairings </h4>
-                <p>Play out matches according to the following pairings. Enter results before moving on to the next round.</p>
-                <br/><p>W = Win</p>
-                <br/><p>D = Draw</p>
+                <p>Play out matches according to the following pairings. Enter results before moving on to the next round or ending the draft.</p>
                 <br/>
                 <br/>
                 <table>
                     <tr>
-                        <th><p class="alignRight">Opponent 1</p></th><th><p>W</p></th><th><p>D</p></th><th><p>W</p></th><th><p>Opponent 2</p></th>
+                        <th><p class="alignRight">Drop</p></th>
+                    <th></th>
+                    <th class="borderTop borderRight"><p>Wins</p></th>
+                    <th><p>Draw</p></th>
+                    <th class="borderTop borderLeft"><p>Wins</p></th>
+                    <th></th><th><p>Drop</p></th>
                     </tr>
                     <?php
                     $players = $draft->players;
                     for ($i = 0; $i < count($players); $i++) {
                         $opponent1 = $players[$i]->name;
+                        $class = ($i % 4 == 0) ? 'trLight' : 'trDark';
+
                         if (++$i < count($players)) {
                             $opponent2 = $players[$i]->name;
                             printf(
-                                    '<tr class="dataRow">
-                                <td><div title="Drop player" class="deleteButtonContainer"><div class="deleteButton ui-icon-close ui-icon"></div></div><p class="alignRight">%s</p></td>
+                                    '<tr class="dataRow %s">
+                                <td><input type="checkbox"/></td>
+                                <td><p class="alignRight">%s</p></td>
+                                <td class="borderRight"><input class="numberField"/></td>
                                 <td><input class="numberField"/></td>
-                                <td><input class="numberField"/></td>
-                                <td><input class="numberField"/></td>
-                                <td><p>%s</p><div title="Drop player" class="deleteButtonContainer alignRight"><div class="deleteButton ui-icon-close ui-icon"></div></div></td>
-                                </tr>', $opponent1, $opponent2
+                                <td class="borderLeft"><input class="numberField"/></td>
+                                <td><p class="alignLeft">%s</p></td>
+                                <td><input type="checkbox"/></td>
+                                </tr>', $class, $opponent1, $opponent2
                             );
                         } else {
                             $wins = 2;
                             printf(
-                                    '<tr class="dataRow">
-                                <td><div title="Drop player" class="deleteButtonContainer"><div class="deleteButton ui-icon-close ui-icon"></div></div><p class="alignRight">%s</p></td>
-                                <td><input class="numberField" value="%d" disabled="disabled"/></td>
+                                    '<tr class="dataRow %s">
+                                <td><input type="checkbox"/></td>
+                                <td><p class="alignRight">%s</p></td>
+                                <td class="borderRight"><input class="numberField" value="%d" disabled="disabled"/></td>
                                 <td><input class="numberField" disabled="disabled"/></td>
-                                <td><input class="numberField" disabled="disabled"/></td>
-                                <td><p>%s</p></div></div></td>
-                                </tr>', $opponent1, $wins, 'BYE'
+                                <td class="borderLeft"><input class="numberField" disabled="disabled"/></td>
+                                <td><p class="alignLeft">%s</p></div></div></td>
+                                <td></td>
+                                </tr>', $class, $opponent1, $wins, 'BYE'
                             );
                         }
                     }
@@ -109,9 +118,9 @@ if (count($fileList) > 0) {
             <br/><h4>Use the score card to fill out match results.  </h4>
             <p>The number fields, from left to right, represent player 1 wins, draws, and player 2 wins. In the example shown here:
             <ul>
-                <li>Erin has beat Sean 2-0</li>
-                <li>Natasha beat Lindsay in the first game, and the second ended in a draw</li>
-                <li>Caitlin beat Justin 2-1</li>
+                <li>Caitlin has beat Sean 2-0</li>
+                <li>Justin beat Natasha in the first game, and the second ended in a draw</li>
+                <li>Lindsay beat Erin 2-1, and Erin has chosen to drop from the tournament (he will not be placed in following rounds).</li>
                 <li>Chris was given a bye</li>
             </ul>
         </div>

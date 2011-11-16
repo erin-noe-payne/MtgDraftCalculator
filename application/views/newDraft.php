@@ -2,7 +2,7 @@
 
     <div id="container">
         <div class="title">
-            <h2>Seating</h2>
+            <h2>Seating</h2><h1>&nbsp;</h1>
         </div>
         <div class="content">
             <div class="contentSection">

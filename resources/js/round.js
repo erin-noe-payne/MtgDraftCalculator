@@ -4,51 +4,44 @@
  */
 
 $(function() {
-    var data = function(){}
-    data.dropped = new Array();
-    data.scores = new Array();
     var WINCONDITION = Math.ceil(BESTOF/2);
     
-    $('.deleteButton').live('click', function() {
-        var index = $('.deleteButton').index($(this));
-        var name = PLAYERS[index].name;
-        if(confirm('Are you sure you wish to drop player '+name+
-            ' from the draft? The player who drops will lose the match. This action cannot be undone.')) {
-            dropPlayer($(this), index);
-        }
-    });
     $('form').submit(function(e){
         if(!dataValid()) {
             e.preventDefault();
-            alert('Score totals are not right.')
+            alert('Please check the highlighted rows and correct the scores before continuing.')
         }
         else{
             var scores={};
             var rows = $('.dataRow');
             for(var i=0;i<PLAYERS.length; i++) {
                 var uid = PLAYERS[i].id;
-                var dropped = PLAYERS[i].dropped;
-                var fields = rows.eq(Math.floor(i/2)).find('.numberField');
+                var row = rows.eq(Math.floor(i/2))
+                var fields = row.find('.numberField');
+                var droppedBoxes = row.find('input:checkbox');
+                var wins, draws, losses, dropped;
                 if(i%2==0) {
-                    var wins = getIntFromField(fields.eq(0));
-                    var draws = getIntFromField(fields.eq(1));
-                    var losses = getIntFromField(fields.eq(2));
+                    wins = getIntFromField(fields.eq(0));
+                    draws = getIntFromField(fields.eq(1));
+                    losses = getIntFromField(fields.eq(2));
+                    dropped = droppedBoxes.eq(0).is(':checked');
                 }
                 else {
-                    var wins = getIntFromField(fields.eq(2));
-                    var draws = getIntFromField(fields.eq(1));
-                    var losses = getIntFromField(fields.eq(0));   
+                    wins = getIntFromField(fields.eq(2));
+                    draws = getIntFromField(fields.eq(1));
+                    losses = getIntFromField(fields.eq(0));
+                    dropped = droppedBoxes.eq(1).is(':checked');
                 }
                 scores[uid]=[wins, draws, losses, dropped];
             }
             $('[name="scores"]').val(JSON.stringify(scores));
         }
     })
-    $('.helpButton').click(function(){
+    $('.helpButtonContainer').click(function(){
         $('#help').fadeIn('fast');
     })
     $('#help').click(function() {
-       $(this).fadeOut('fast'); 
+        $(this).fadeOut('fast'); 
     });
     
     function dataValid() {
@@ -90,26 +83,6 @@ $(function() {
             }
         });
         return validData;
-    }
-    function dropPlayer(button, index){
-        PLAYERS[index].dropped = true;
-
-        button.parent().hide();
-        var row = button.closest('tr');
-        row.addClass('dropped');
-        var fields = row.find('.numberField');
-        fields.attr('disabled', 'disabled');
-
-        if(index%2==0) {
-            fields.eq(0).val(0);
-            fields.eq(1).val(0);
-            fields.eq(2).val(WINCONDITION);
-        }
-        else {
-            fields.eq(2).val(0);
-            fields.eq(1).val(0);
-            fields.eq(0).val(WINCONDITION);
-        }
     }
     function getIntFromField(field) {
         var val = parseInt(field.val());
