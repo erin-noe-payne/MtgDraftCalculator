@@ -85,28 +85,32 @@ class Mtgdc extends CI_Controller {
         session_start();
         //TODO - check for valid session / data, handle appropriately.
         $draft = $_SESSION['draft'];
-        
-        
+
+
         //sort the draft for matchmaking (do this before updating the round)
         $draft->sortForMatchmaking();
         //update what round it is
         $draft->roundNumber++;
-        
-        
+
+
         //set the draft object in the data array
         $data['draft'] = $draft;
         //save the draft in the session
         $_SESSION['draft'] = $draft;
-        
+
         $this->load->view('header');
         $this->load->view('round', $data);
         $this->load->view('footer');
     }
 
     public function scoreSheet() {
-        $draft = null;
+        session_start();
+        $draft = $_SESSION['draft'];
+        $data['draft'] = $draft;
 
-        $this->load->view('scoreSheet', $draft);
+        $this->load->view('header');
+        $this->load->view('scoreSheet', $data);
+        $this->load->view('footer');
     }
 
 }

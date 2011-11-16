@@ -14,7 +14,6 @@ body {
 /* 
 Text & header formatting
 */
-
 h1{
     text-shadow: black 2px 2px 2px;
     font-size: 2em;
@@ -47,6 +46,10 @@ p {
     text-align: right;
     float:right;
 }
+.alignLeft {
+    text-align: left;
+    float:left;
+}
 
 /*
 Div & Container formatting
@@ -58,8 +61,7 @@ Div & Container formatting
 }
 .content {
     position: relative;
-    padding: 15px 15px 45px 15px;
-    width: 600px;
+    padding: 15px 45px 45px 15px;
     min-height:300px;
     background: url('../img/transparentBlack.png') repeat;
     border-radius: 5px;
@@ -94,6 +96,7 @@ Div & Container formatting
     bottom: 15px;
 }
 .title {
+    position:relative;
     margin-left: 15px;
     margin-bottom: -32px;
     z-index: 2;
@@ -147,22 +150,49 @@ li {
     text-align: center;
 }
 table {
-    margin-left: 30px;
-    border: 1px solid transparent;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border: 3px solid white;
+    width: 62%;
 }
 .name{
     margin-right: 5px;
-}
-.buttonBar *{
-    display: inline-block;
 }
 
 
 /*
 Table Formatting
 */
+th, tr, td{
+    padding : 6px;
+    text-align: center;
+}
+.buttonBar *{
+    display: inline-block;
+}
+.borderRight {
+    border-right: 1px solid white;
+}
+.borderTop {
+    border-top: 1px solid white;
+}
+.borderLeft {
+    border-left: 1px solid white;
+}
+.borderBottom {
+    border-bottom: 1px solid white;
+}
+.trDark{
+    background: url('../img/transparentBlack.png') repeat;
+    background: rgba(78, 101, 85, 0.5); 
+}
+.trLight{
+    background: rgba(193, 210, 192, 0.5); 
+}
 .invalidData{
-    background: #9F3E35;
+    background: #9F3E35 !important;
 }
 
 /*
@@ -179,16 +209,16 @@ Table Formatting
     z-index: 10;
 }
 #helpContainer {
-    background: black;
+    background: #0f0f0f;
     width: 400px;
     margin-top: 70px;
     margin-left: auto;
     margin-right: auto;
     border: 5px solid white;
     padding: 15px;
-    -moz-box-shadow: 10px 10px 5px black;
-    -webkit-box-shadow: 10px 10px 5px black;
-    box-shadow: 4px 4px 4px black;
+    -moz-box-shadow: 0px 0px 15px black;
+    -webkit-box-shadow: 0px 0px 15px black;
+    box-shadow: 0px 0px 15px black;
 }
 #help img{
     display: block;
