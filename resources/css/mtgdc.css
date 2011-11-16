@@ -21,6 +21,7 @@ h1{
     font-family: 'Bevan', serif;
     display: inline-block;
     color: #CCCCCC;
+    margin:0;
 }
 h2 {
     font-size: 2em;
@@ -28,6 +29,7 @@ h2 {
     text-shadow: black 2px 2px 2px;
     font-family: 'Marvel', sans-serif;
     display: inline-block;
+    margin:0;
 }
 h4 {
     text-shadow: black 2px 2px 2px;
@@ -98,7 +100,7 @@ Div & Container formatting
 .title {
     position:relative;
     margin-left: 15px;
-    margin-bottom: -32px;
+    margin-bottom: -11px;
     z-index: 2;
 }
 .deleteButtonContainer {
