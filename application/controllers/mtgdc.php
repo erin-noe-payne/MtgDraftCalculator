@@ -22,7 +22,6 @@ class Mtgdc extends CI_Controller {
      */
     public function index() {
         session_start();
-        $_SESSION['asdf'] = 'asdf';
 
         $this->load->view('header');
         $this->load->view('index');
@@ -46,7 +45,7 @@ class Mtgdc extends CI_Controller {
 
         //check to see if the list of players was sent
         if (isset($_POST['players'])) {//it was! let's add these players to the draft
-            $playerNames = json_decode($_POST['players']);
+            $playerNames = json_decode($_POST['players'], true);
         } else {//it wasn't! For now let's just return some test data.  in the future, there should be some kind of error handling
             $playerNames = array('Ted', 'John', 'Steve', 'Bob');
         }
@@ -88,7 +87,7 @@ class Mtgdc extends CI_Controller {
         
         if($draft->roundNumber != 0)
         {
-            $scores = json_decode($_POST['scores']);
+            $scores = json_decode($_POST['scores'], true);
             
             $draft->updateScores($scores);
         }

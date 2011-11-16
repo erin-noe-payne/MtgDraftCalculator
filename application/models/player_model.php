@@ -5,6 +5,9 @@ class Player_model extends CI_Model
 
     var $id;
     var $name; //name of player
+    var $wins;
+    var $draws;
+    var $losses;
     var $matchPoints; //3 for a win, 1 for a draw, 0 for a loss
     var $matchCount; //the  number of matches a player has played in
     var $gamePoints; //
@@ -12,6 +15,8 @@ class Player_model extends CI_Model
     var $byeCount; //the number of byes a player has had (shouldn't really ever be more than 1)
     var $dropped; //bool value indicating whether a player has dropped out
     var $opponents; //array of players that this player has played against
+    
+
 
     function __construct($id, $name)
     {
@@ -37,6 +42,10 @@ class Player_model extends CI_Model
         $draws = $score[1];
         $losses = $score[2];
         $dropping = $score[3];
+        
+        $this->wins += $wins;
+        $this->draws += $draws;
+        $this->losses += $losses;
         
         
         if($wins == 2)

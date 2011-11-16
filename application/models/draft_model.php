@@ -49,9 +49,10 @@ class Draft_model extends CI_Model
     
     function updateScores($score)
     {
-        if($draft->players % 2 == 1)
+        
+        foreach($this->players as $index => $player)
         {
-            $draft->players[count($draft->players)-1]->updateScore($scores[count($scores)-1]);
+            $player->updateScore($score[$player->id]);
         }
     }
 
@@ -108,8 +109,8 @@ class Draft_model extends CI_Model
                 if(!$highestPlayer->hasPlayed($player))
                 {
                     //update oponents list of the two paired players
-                    array_push($toBeChecked[$highestPlayer]->opponenets, $toBeChecked[$player]->id);
-                    array_push($toBeChecked[$player]->opponenets, $toBeChecked[$highesPlayer]->id);
+                    array_push($highestPlayer->opponents, $player->id);
+                    array_push($player->opponents, $highestPlayer->id);
                     
                     array_push($ret, $highestPlayer);
                     array_push($ret, $player);
@@ -153,8 +154,8 @@ class Draft_model extends CI_Model
             $halfOfArray = count($toBeChecked) / 2;
 
             //update opponents list of the two players that are getting paired
-            array_push($toBeChecked[0]->opponenets, $toBeChecked[$halfOfArray]->id);
-            array_push($toBeChecked[$halfOfArray]->opponenets, $toBeChecked[0]->id);
+            array_push($toBeChecked[0]->opponents, $toBeChecked[$halfOfArray]->id);
+            array_push($toBeChecked[$halfOfArray]->opponents, $toBeChecked[0]->id);
             
             //push the two people on to the return list.
             //By being next to each other that means they are playing
