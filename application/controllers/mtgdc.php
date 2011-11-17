@@ -81,6 +81,12 @@ class Mtgdc extends CI_Controller {
     }
 
     public function round() {
+        //check if GET -- if it is, start round 1 or recover 
+        //if draft object in session is higher than round 1
+        
+        //check if POST -- if it is, then incremement round 
+        //and do matchmaking
+        
         session_start();
         //TODO - check for valid session / data, handle appropriately.
         $draft = $_SESSION['draft'];
