@@ -4,7 +4,6 @@
  */
 
 $(function() {
-        
     /*
      * Event Listeners
      */
@@ -32,6 +31,11 @@ $(function() {
         })
         $('#field_players').val(JSON.stringify(players));
     })
+    $('#closeModal').live('click', function(){
+        $('.modal').fadeOut('fast'); 
+    });
+    //$('.modal').show();
+    
     
     /*
      * Functionality

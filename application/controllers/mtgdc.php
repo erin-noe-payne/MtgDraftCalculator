@@ -20,11 +20,24 @@ class Mtgdc extends CI_Controller {
      * map to /index.php/welcome/<method_name>
      * @see http://codeigniter.com/user_guide/general/urls.html
      */
+    public function test() {
+        session_start();
+        $draft = $_SESSION['draft'];
+
+        $draft->test();
+    }
+
     public function index() {
         session_start();
 
+        $previousSession = false;
+        if (isset($_SESSION['draft'])) {
+            $previousSession = true;
+        }
+        $data['previousSession'] = $previousSession;
+
         $this->load->view('header');
-        $this->load->view('index');
+        $this->load->view('index', $data);
         $this->load->view('footer');
     }
 
@@ -84,19 +97,17 @@ class Mtgdc extends CI_Controller {
         session_start();
         //TODO - check for valid session / data, handle appropriately.
         $draft = $_SESSION['draft'];
-        
-        if($draft->roundNumber != 0)
-        {
+
+        //if rounds was acessed via post.
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $scores = json_decode($_POST['scores'], true);
-            
             $draft->updateScores($scores);
+            $draft->sortForMatchmaking();
+        } else {
+            
         }
-        
-        
+
         //sort the draft for matchmaking
-        $draft->sortForMatchmaking();
-
-
         //set the draft object in the data array
         $data['draft'] = $draft;
         //save the draft in the session
@@ -107,12 +118,11 @@ class Mtgdc extends CI_Controller {
         $this->load->view('footer');
     }
 
-    
     public function scoreSheet() {
         session_start();
         $draft = $_SESSION['draft'];
         $data['draft'] = $draft;
-
+        unset($_SESSION['draft']);
         $this->load->view('header');
         $this->load->view('scoreSheet', $data);
         $this->load->view('footer');

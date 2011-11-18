@@ -29,6 +29,9 @@
                 </form>
             </div>
         </div>
+        <div class="footer">
+            <p><a target="_blank" href="http://www.quickmtg.com/">quickmtg.com</a></p>
+        </div>
     </div>
 </body>
 

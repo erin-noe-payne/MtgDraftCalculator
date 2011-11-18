@@ -21,7 +21,7 @@ h1{
     font-family: 'Bevan', serif;
     display: inline-block;
     color: #CCCCCC;
-    margin:0;
+    margin-bottom:0;
 }
 h2 {
     font-size: 2em;
@@ -29,7 +29,7 @@ h2 {
     text-shadow: black 2px 2px 2px;
     font-family: 'Marvel', sans-serif;
     display: inline-block;
-    margin:0;
+    margin-bottom:0;
 }
 h4 {
     text-shadow: black 2px 2px 2px;
@@ -134,6 +134,11 @@ Div & Container formatting
     background: #769881;
     cursor: pointer;
 }
+.footer {
+    text-align: right;
+    margin-top: -5px;
+    padding-right: 15px;
+}
 
 /*
 Element formatting
@@ -161,6 +166,17 @@ table {
 }
 .name{
     margin-right: 5px;
+}
+a{
+    color: #769881;
+    font-weight: bold;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:active {
+    color: #C1D2C0;
 }
 
 
@@ -200,8 +216,10 @@ th, tr, td{
 /*
 * Help formatting
 */
-#help{
+.hidden {
     display: none;
+}
+.modal {
     background: rgba(15, 15, 15, 0.8);
     width: 100%;
     height: 100%;
@@ -210,7 +228,7 @@ th, tr, td{
     left:0px;
     z-index: 10;
 }
-#helpContainer {
+.modalContent {
     background: #0f0f0f;
     width: 400px;
     margin-top: 70px;
@@ -222,7 +240,7 @@ th, tr, td{
     -webkit-box-shadow: 0px 0px 15px black;
     box-shadow: 0px 0px 15px black;
 }
-#help img{
+.modal img{
     display: block;
     margin-left: auto;
     margin-right: auto;

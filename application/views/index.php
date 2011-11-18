@@ -37,6 +37,23 @@
                 </div>
             </form>
         </div>
+        <div class="footer">
+            <p><a target="_blank" href="http://www.quickmtg.com/">quickmtg.com</a></p>
+        </div>
+    </div>
+    
+    <div class="modal <?=($previousSession?'':'hidden')?>">
+        <div class="modalContent">
+            <h4>Welcome back!</h4>
+            <p>It appears that you have a draft that is still active.
+                Please select whether you would like to return to your saved draft, or start a new one.</p>
+            <br/>
+            <br/>
+            <div>
+                <a href="<?= base_url() ?>index.php/Mtgdc/round"><button>Return to saved draft</button></a>
+                <button id="closeModal" class="alignRight">Start a new draft</button>
+            </div>
+        </div>
     </div>
 </body>
 

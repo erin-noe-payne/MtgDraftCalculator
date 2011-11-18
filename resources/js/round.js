@@ -38,9 +38,9 @@ $(function() {
         }
     })
     $('.helpButtonContainer').click(function(){
-        $('#help').fadeIn('fast');
+        $('.modal').fadeIn('fast');
     })
-    $('#help').click(function() {
+    $('.modal').click(function() {
         $(this).fadeOut('fast'); 
     });
     
@@ -88,7 +88,4 @@ $(function() {
         var val = parseInt(field.val());
         return isNaN(val)?0:val;
     }
-})
-
-
-
+});

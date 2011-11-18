@@ -10,9 +10,9 @@
             <div title="Help" class="helpButtonContainer"><div class="helpButton ui-icon-help ui-icon"></div></div>
             <div class="contentSection">
                 <h4> Final Scoring </h4>
-                <p>Congratulations on another successful draft! If you are running low on supplies, 
-                    make sure to check out <a href="http://www.quickmtg.com/">quickmtg.com</a>, 
-                    where you can get the cheapest booster boxes on the internet. The rankings are listed below.</p>
+                <p>Congratulations on another successful draft. If you are running low on supplies, 
+                    make sure to check out <a target="_blank" href="http://www.quickmtg.com/">quickmtg.com</a>, 
+                    where you can get the cheapest booster boxes on the internet!</p>
                 <br/>
                 <br/>
                 <table>
@@ -30,7 +30,7 @@
                     <?php
                     $players = $draft->players;
                     for ($i = 1; $i <= count($players); $i++) {
-                        $player = $players[$i]->name;
+                        $player = $players[$i];
                         $class = ($i % 2 == 0) ? 'trLight' : 'trDark';
 
                         printf(
@@ -42,7 +42,7 @@
                                 <td class="borderLeft"><input class="numberField"/></td>
                                 <td><p class="alignLeft">%s</p></td>
                                 <td><input type="checkbox"/></td>
-                                </tr>', $class, $opponent1, $opponent2
+                                </tr>', $class, $player->name, $player->gamePoints
                         );
                     }
                     ?>
@@ -59,6 +59,9 @@
                     <input type="submit" value="End Draft"/>
                 </form>
             </div>
+        </div>
+        <div class="footer">
+            <p><a target="_blank" href="http://www.quickmtg.com/">quickmtg.com</a></p>
         </div>
     </div>
 </body>

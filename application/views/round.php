@@ -110,10 +110,13 @@ if (count($fileList) > 0) {
                 </form>
             </div>
         </div>
+        <div class="footer">
+            <p><a target="_blank" href="http://www.quickmtg.com/">quickmtg.com</a></p>
+        </div>
     </div>
 
-    <div id="help">
-        <div id="helpContainer">
+    <div class="modal hidden">
+        <div class="modalContent">
             <img class="buttonForm" src="<?= base_url() ?>resources/img/roundHelp.png"/>
             <br/><h4>Use the score card to fill out match results.  </h4>
             <p>The number fields, from left to right, represent player 1 wins, draws, and player 2 wins. In the example shown here:
