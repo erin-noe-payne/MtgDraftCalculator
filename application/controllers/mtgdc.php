@@ -102,25 +102,22 @@ class Mtgdc extends CI_Controller {
         session_start();
         //TODO - check for valid session / data, handle appropriately.
         $draft = $_SESSION['draft'];
-        echo 'round';
 
         //if rounds was acessed via post.
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    echo 'post';
 
             $roundNumber = $_POST['round'];
-                    echo 'round numb: '.$roundNumber ;
 
             //In the case of a page reload (and form resubmit) nothing will happen
             if ($roundNumber > $draft->roundNumber) {
                 $scores = json_decode($_POST['scores'], true);
                 $draft->updateScores($scores);
                 $draft->sortForMatchmaking();
-                print_r($draft->players);
             }
-            else {
-                echo 'round number issue';
-            }
+        } 
+        //if it was accessed by get and round number is 1
+        else if ($draft->roundNumber == 0) {
+            $draft->sortForMatchMaking();
         }
 
         $data['draft'] = $draft;

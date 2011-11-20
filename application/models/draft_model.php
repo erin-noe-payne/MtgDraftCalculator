@@ -15,7 +15,7 @@ class Draft_model extends CI_Model {
         parent::__construct();
 
         $this->bestOfGames = 3;
-        $this->roundNumber = 1;
+        $this->roundNumber = 0;
         $this->nextPlayerID = 1;
 
         $this->players = array();
@@ -32,7 +32,7 @@ class Draft_model extends CI_Model {
         foreach ($this->players as $index => $player) {
             $player->updateScore($score[$player->id]);
             $dropping = $score[$player->id][3];
-            if($dropping==true) {
+            if ($dropping == true) {
                 $this->dropPlayer($player->id);
             }
         }
@@ -40,7 +40,7 @@ class Draft_model extends CI_Model {
 
     function sortForMatchMaking() {
         //is this the first round?
-        if ($this->roundNumber == 1) {
+        if ($this->roundNumber == 0) {
             $this->players = $this->sortForFirstRound($this->players);
         } else {
             $players = $this->players;
@@ -89,6 +89,7 @@ class Draft_model extends CI_Model {
     /*
      * INTERNAL METHODS
      */
+
     //note parameters are switched for descending sort
     function comparePlayers($p2, $p1) {
         //First measure, match points
@@ -126,13 +127,13 @@ class Draft_model extends CI_Model {
                         return ($p1OppGameWinPerc > $p2OppGameWinPerc);
                 }
                 else
-                    return ($p1GameWinPerc > $p2GameWinPerc)?1:-1;
+                    return ($p1GameWinPerc > $p2GameWinPerc) ? 1 : -1;
             }
             else
-                return ($p1OppMatchWinPec > $p2OpponentWinPec)?1:-1;
+                return ($p1OppMatchWinPec > $p2OpponentWinPec) ? 1 : -1;
         }
         else
-            return ($p1->matchPoints > $p2->matchPoints)?1:-1;
+            return ($p1->matchPoints > $p2->matchPoints) ? 1 : -1;
     }
 
     private function dropPlayer($id) {
