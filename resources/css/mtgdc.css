@@ -50,7 +50,6 @@ p {
 }
 .alignLeft {
     text-align: left;
-    float:left;
 }
 
 /*
@@ -96,6 +95,8 @@ Div & Container formatting
 .buttonBar {
     position: absolute;
     bottom: 15px;
+    display: block;
+    width: 568px;
 }
 .title {
     position:relative;
@@ -184,7 +185,7 @@ a:active {
 Table Formatting
 */
 th, tr, td{
-    padding : 6px;
+    padding : 6px 10px 6px 10px;
     text-align: center;
 }
 .buttonBar *{

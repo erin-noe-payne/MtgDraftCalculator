@@ -17,47 +17,45 @@
                 <br/>
                 <table>
                     <tr>
-                        <th>Rank</th>
-                        <th>Name</th>
-                        <th>Wins</th>
-                        <th>Draws</th>
-                        <th>Losses</th>
-                        <th>Points</th>
-                        <th>Byes</th>
-                        <th>Dropped?</th>
-                        <th></th>
+                        <th><p>Rank</p></th>
+                        <th class="borderRight"><p>Name</p></th>
+                        <th><p>Wins</p></th>
+                        <th><p>Draws</p></th>
+                        <th class="borderRight"><p>Losses</p></th>
+                        <th><p>Points</p></th>
+                        <th><p>Byes</p></th>
+                        <th><p>Drop?</p></th>
                     </tr>
                     <?php
                     $players = $draft->players;
-                    for ($i = 1; $i <= count($players); $i++) {
-                        $player = $players[$i];
-                        $class = ($i % 2 == 0) ? 'trLight' : 'trDark';
+                    $i=1;
+                    foreach($players as $player) {
+                        $class = ($i % 2 == 1) ? 'trLight' : 'trDark';
 
                         printf(
                                 '<tr class="dataRow %s">
-                                <td><input type="checkbox"/></td>
-                                <td><p class="alignRight">%s</p></td>
-                                <td class="borderRight"><input class="numberField"/></td>
-                                <td><input class="numberField"/></td>
-                                <td class="borderLeft"><input class="numberField"/></td>
-                                <td><p class="alignLeft">%s</p></td>
-                                <td><input type="checkbox"/></td>
-                                </tr>', $class, $player->name, $player->gamePoints
+                                <td><p>%s</p></td>
+                                <td class="borderRight alignLeft"><p>%s</p></td>
+                                <td><p>%s</p></td>
+                                <td><p>%s</p></td>
+                                <td class="borderRight"><p>%s</p></td>
+                                <td><p>%s</p></td>
+                                <td><p>%s</p></td>
+                                <td><p>%s</p></td>
+                                </tr>', $class, $i, $player->name, $player->wins, 
+                                $player->draws, $player->losses, $player->matchPoints, 
+                                $player->byeCount, $player->dropped
+                                
                         );
+                        $i++;
                     }
                     ?>
                 </table>
             </div>
 
             <div class="buttonBar">
-                <form class="buttonForm" action="<?= base_url() ?>index.php/Mtgdc/round" method="post">
-                    <input name="scores" type="hidden"/>
-                    <input type="submit" value="Go to Round <?= $draft->roundNumber + 1 ?>"/>
-                </form>
-                <form action="<?= base_url() ?>index.php/Mtgdc/scoreSheet" method="post">
-                    <input name="scores" type="hidden"/>
-                    <input type="submit" value="End Draft"/>
-                </form>
+                <a href="<?= base_url() ?>"><button>Save Results</button></a>
+                <a class="alignRight" href="<?= base_url() ?>"><button>Start a new Draft</button></a>
             </div>
         </div>
         <div class="footer">

@@ -102,10 +102,12 @@ if (count($fileList) > 0) {
             <div class="buttonBar">
                 <form class="buttonForm" action="<?= base_url() ?>index.php/Mtgdc/round" method="post">
                     <input name="scores" type="hidden"/>
+                    <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
                     <input type="submit" value="Go to Round <?= $draft->roundNumber + 1 ?>"/>
                 </form>
-                <form action="<?= base_url() ?>index.php/Mtgdc/scoreSheet" method="post">
+                <form class="alignRight" action="<?= base_url() ?>index.php/Mtgdc/scoreSheet" method="post">
                     <input name="scores" type="hidden"/>
+                    <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
                     <input type="submit" value="End Draft"/>
                 </form>
             </div>

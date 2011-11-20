@@ -24,7 +24,17 @@ class Player_model extends CI_Model
 
         $this->id = $id;
         $this->name = $name;
-
+        
+        /*
+         * Data for display at ranking screen
+         */
+        $this->wins=0;
+        $this->draws=0;
+        $this->losses=0;
+        
+        /*
+         * Tiebreaker data
+         */
         $this->matchPoints = 0;
         $this->matchCount = 0;
         $this->gamePoints = 0;
@@ -37,7 +47,8 @@ class Player_model extends CI_Model
     }
     
     function updateScore($score)
-    {
+    {   
+        //TODO: bestOf values are hard coded, need to add reference for bestOf
         $wins = $score[0];
         $draws = $score[1];
         $losses = $score[2];
@@ -67,9 +78,18 @@ class Player_model extends CI_Model
     //returns true if this player is ranked higher than $otherPlayer
     function isHigherThan($otherPlayer)
     {
-        if($this->matchPoints > $otherPlayer->matchPoints)
+        //First measure, match points
+        if($this->matchPoints == $otherPlayer->matchPoints)
         {
-            return true;
+            //First tiebreaker: opponent win %
+            $thisWinPerc = max($this->matchPoints/($this->matchCount*3),0.33);
+            $otherWinPerc = max($otherPlayer->matchPoints/($otherPlayer->matchCount*3),0.33);
+            if($thisWinPerc == $otherWinPerc) {
+                
+            }
+        }
+        else {
+            return ($this->matchPoints > $otherPlayer->matchPoints);
         }
         
     }

@@ -96,25 +96,33 @@ class Mtgdc extends CI_Controller {
     public function round() {
         //check if GET -- if it is, start round 1 or recover 
         //if draft object in session is higher than round 1
-        
         //check if POST -- if it is, then incremement round 
         //and do matchmaking
-        
+
         session_start();
         //TODO - check for valid session / data, handle appropriately.
         $draft = $_SESSION['draft'];
+        echo 'round';
 
         //if rounds was acessed via post.
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $scores = json_decode($_POST['scores'], true);
-            $draft->updateScores($scores);
-            $draft->sortForMatchmaking();
-        } else {
-            
+                    echo 'post';
+
+            $roundNumber = $_POST['round'];
+                    echo 'round numb: '.$roundNumber ;
+
+            //In the case of a page reload (and form resubmit) nothing will happen
+            if ($roundNumber > $draft->roundNumber) {
+                $scores = json_decode($_POST['scores'], true);
+                $draft->updateScores($scores);
+                $draft->sortForMatchmaking();
+                print_r($draft->players);
+            }
+            else {
+                echo 'round number issue';
+            }
         }
 
-        //sort the draft for matchmaking
-        //set the draft object in the data array
         $data['draft'] = $draft;
         //save the draft in the session
         $_SESSION['draft'] = $draft;
@@ -127,8 +135,13 @@ class Mtgdc extends CI_Controller {
     public function scoreSheet() {
         session_start();
         $draft = $_SESSION['draft'];
+        $scores = json_decode($_POST['scores'], true);
+        $draft->updateScores($scores);
+        $draft->getRankings();
         $data['draft'] = $draft;
-        unset($_SESSION['draft']);
+
+        //unset($_SESSION['draft']);
+
         $this->load->view('header');
         $this->load->view('scoreSheet', $data);
         $this->load->view('footer');
