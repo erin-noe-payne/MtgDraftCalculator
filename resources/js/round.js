@@ -38,9 +38,9 @@ $(function() {
         }
     })
     $('.helpButtonContainer').click(function(){
-        $('.modal').fadeIn('fast');
+        $('#help').fadeIn('fast');
     })
-    $('.modal').click(function() {
+    $('.#help').click(function() {
         $(this).fadeOut('fast'); 
     });
     

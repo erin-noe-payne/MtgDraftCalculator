@@ -64,22 +64,27 @@ class Draft_model extends CI_Model {
             $pairingOptions = array();
             $this->findPairingOptions($players, array(), $pairingOptions);
 
-            $shortestDistancePairings = $this->findShortest($pairingOptions);
+            if (count($pairingOptions) > 0) {
+                $shortestDistancePairings = $this->findShortest($pairingOptions);
 
-            $matchmakingList = array();
-            foreach ($shortestDistancePairings as $pair) {
-                array_push($pair->player1->opponents, $pair->player2->id);
-                array_push($pair->player2->opponents, $pair->player1->id);
+                $matchmakingList = array();
+                foreach ($shortestDistancePairings as $pair) {
+                    array_push($pair->player1->opponents, $pair->player2->id);
+                    array_push($pair->player2->opponents, $pair->player1->id);
 
-                array_push($matchmakingList, $pair->player1);
-                array_push($matchmakingList, $pair->player2);
+                    array_push($matchmakingList, $pair->player1);
+                    array_push($matchmakingList, $pair->player2);
+                }
+                if (isset($mrBye)) {
+                    array_push($matchmakingList, $mrBye);
+                }
+                $this->players = $matchmakingList;
+            } else {
+                return false;
             }
-            if (isset($mrBye)) {
-                array_push($matchmakingList, $mrBye);
-            }
-            $this->players = $matchmakingList;
         }
         $this->roundNumber++;
+        return true;
     }
 
     function getRankings() {
@@ -93,33 +98,41 @@ class Draft_model extends CI_Model {
     //note parameters are switched for descending sort
     function comparePlayers($p2, $p1) {
         //First measure, match points
+        //calculate tie breakers
+        //
+        //First tie-breaker - opponent match win %
+        //Also go ahead and calculater game win % for 3rd tiebreaker, just in case
+        $p1OppMatchWinPerc = $p2OppMatchWinPerc = 0;
+        $p1OppGameWinPerc = $p2OppGameWinPerc = 0;
+        foreach ($p1->opponents as $id) {
+            $opponent = $this->getPlayerById($id);
+            $p1OppMatchWinPerc+=max(0.33, $opponent->matchPoints / ($opponent->matchCount * 3));
+            $p1OppGameWinPerc+=max(0.33, $opponent->gamePoints / ($opponent->gameCount * 3));
+        }
+        $p1OppMatchWinPerc/=count($p1->opponents);
+        $p1OppGameWinPerc/=count($p1->opponents);
+        foreach ($p2->opponents as $id) {
+            $opponent = $this->getPlayerById($id);
+            $p2OppMatchWinPerc+=max(0.33, $opponent->matchPoints / ($opponent->matchCount * 3));
+            $p2OppGameWinPerc+=max(0.33, $opponent->gamePoints / ($opponent->gameCount * 3));
+        }
+        $p2OppMatchWinPerc/=count($p1->opponents);
+        $p2OppGameWinPerc/=count($p1->opponents);
+
+        //Second tie-breaker - game win %
+        $p1GameWinPerc = $p1->gamePoints / ($p1->gameCount * 3);
+        $p2GameWinPerc = $p2->gamePoints / ($p2->gameCount * 3);
+
+        $p1->opponentMatchWinPerc = $p1OppMatchWinPerc;
+        $p1->gameWinPerc = $p1GameWinPerc;
+        $p1->opponentGameWinPerc = $p1OppGameWinPerc;
+        $p2->opponentMatchWinPerc = $p2OppMatchWinPerc;
+        $p2->gameWinPerc = $p2GameWinPerc;
+        $p2->opponentGameWinPerc = $p2OppGameWinPerc;
+
         if ($p1->matchPoints == $p2->matchPoints) {
-            //First tie-breaker - opponent match win %
-            //Also go ahead and calculater game win % for 3rd tiebreaker, just in case
-            $p1OppMatchWinPerc = $p2OppMatchWinPerc = 0;
-            $p1OppGameWinPerc = $p2OppGameWinPerc = 0;
-            foreach ($p1->opponents as $id) {
-                $opponent = $this->getPlayerById($id);
-                $p1OppMatchWinPerc+=max(0.33, $opponent->matchPoints / ($opponent->matchCount * 3));
-                $p1OppGameWinPerc+=max(0.33, $opponent->gamePoints / ($opponent->gameCount * 3));
-            }
-            $p1OppMatchWinPerc/=count($p1->opponents);
-            $p1OppGameWinPerc/=count($p1->opponents);
-            foreach ($p2->opponents as $id) {
-                $opponent = $this->getPlayerById($id);
-                $p2OppMatchWinPerc+=max(0.33, $opponent->matchPoints / ($opponent->matchCount * 3));
-                $p2OppGameWinPerc+=max(0.33, $opponent->gamePoints / ($opponent->gameCount * 3));
-            }
-            $p2OppMatchWinPerc/=count($p1->opponents);
-            $p2OppGameWinPerc/=count($p1->opponents);
-
-
             if ($p1OppMatchWinPerc == $p2OppMatchWinPerc) {
-                //Second tie-breaker - game win %
-                $p1GameWinPerc = $p1->gamePoints / ($p1->gameCount * 3);
-                $p2GameWinPerc = $p2->gamePoints / ($p2->gameCount * 3);
                 if ($p1GameWinPerc == $p2GameWinPerc) {
-                    //Third Tie-breaker
                     if ($p1OppGameWinPerc == $p2OppGameWinPerc) {
                         return 0;
                     }
@@ -130,7 +143,7 @@ class Draft_model extends CI_Model {
                     return ($p1GameWinPerc > $p2GameWinPerc) ? 1 : -1;
             }
             else
-                return ($p1OppMatchWinPec > $p2OpponentWinPec) ? 1 : -1;
+                return ($p1OppMatchWinPerc > $p2OppMatchWinPerc) ? 1 : -1;
         }
         else
             return ($p1->matchPoints > $p2->matchPoints) ? 1 : -1;

@@ -51,6 +51,9 @@ p {
 .alignLeft {
     text-align: left;
 }
+.alighnCenter {
+    text-align: center
+}
 
 /*
 Div & Container formatting
@@ -144,7 +147,7 @@ Div & Container formatting
 /*
 Element formatting
 */
-.contentRight ol {
+.contentRight ol, ul {
     margin: 0px 0px 0px -42px;
 }
 li {
@@ -170,6 +173,7 @@ table {
 }
 a{
     color: #769881;
+    font-family: sans-serif;
     font-weight: bold;
     text-decoration: none;
 }
@@ -213,6 +217,27 @@ th, tr, td{
 .invalidData{
     background: #9F3E35 !important;
 }
+.tbInfo {
+    display:none;
+}
+#showTiebreakers {
+    vertical-align: top;
+    border: 3px solid white;
+    border-left: none;
+    display:inline-block;
+    padding-right: 3px;
+    position: relative;
+    left: -4px;
+}
+.tableContainer {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#scoreSheet {
+    margin: 0 0 0 0;
+}
+
 
 /*
 * Help formatting

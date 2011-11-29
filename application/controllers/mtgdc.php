@@ -102,7 +102,7 @@ class Mtgdc extends CI_Controller {
         session_start();
         //TODO - check for valid session / data, handle appropriately.
         $draft = $_SESSION['draft'];
-
+        $canPlayNextRound = true;
         //if rounds was acessed via post.
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -112,15 +112,16 @@ class Mtgdc extends CI_Controller {
             if ($roundNumber > $draft->roundNumber) {
                 $scores = json_decode($_POST['scores'], true);
                 $draft->updateScores($scores);
-                $draft->sortForMatchmaking();
+                $canPlayNextRound = $draft->sortForMatchmaking();
             }
-        } 
+        }
         //if it was accessed by get and round number is 1
         else if ($draft->roundNumber == 0) {
-            $draft->sortForMatchMaking();
+            $canPlayNextRound = $draft->sortForMatchmaking();
         }
 
         $data['draft'] = $draft;
+        $data['canPlayNextRound'] = $canPlayNextRound;
         //save the draft in the session
         $_SESSION['draft'] = $draft;
 
@@ -132,8 +133,10 @@ class Mtgdc extends CI_Controller {
     public function scoreSheet() {
         session_start();
         $draft = $_SESSION['draft'];
-        $scores = json_decode($_POST['scores'], true);
-        $draft->updateScores($scores);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $scores = json_decode($_POST['scores'], true);
+            $draft->updateScores($scores);
+        }
         $draft->getRankings();
         $data['draft'] = $draft;
 

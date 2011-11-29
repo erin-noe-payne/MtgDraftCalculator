@@ -117,7 +117,7 @@ if (count($fileList) > 0) {
         </div>
     </div>
 
-    <div class="modal hidden">
+    <div id="help" class="modal hidden">
         <div class="modalContent">
             <img class="buttonForm" src="<?= base_url() ?>resources/img/roundHelp.png"/>
             <br/><h4>Use the score card to fill out match results.  </h4>
@@ -128,6 +128,20 @@ if (count($fileList) > 0) {
                 <li>Lindsay beat Erin 2-1, and Erin has chosen to drop from the tournament (he will not be placed in following rounds).</li>
                 <li>Chris was given a bye</li>
             </ul>
+        </div>
+    </div>
+    
+    <div class="modal <?= ($canPlayNextRound ? 'hidden' : '') ?>">
+        <div class="modalContent">
+            <h4>Uh oh!</h4>
+            <p>It looks like there are no more legal pairings left. We have to end the draft. 
+                Click the button below to continue to the final score sheet.</p>
+            <br/>
+            <br/>
+            <div>
+                <a href="<?= base_url() ?>index.php/Mtgdc/scoreSheet"><button>End Draft</button></a>
+                
+            </div>
         </div>
     </div>
 </body>

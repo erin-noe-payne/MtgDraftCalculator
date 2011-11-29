@@ -10,15 +10,7 @@
         <div class="content">
             <form id="draftForm" action="<?= base_url() ?>index.php/Mtgdc/newDraft" method="post">
 
-                <div class="contentSection">
-                    <div class="contentLeft">
-                        <h4>Best of</h4>
-                        <p>How many games can be played in each match?</p>
-                    </div>
-                    <div class="contentRight">
-                        <input class="numberField" name="bestOf" type="text" value="3"/>
-                    </div>
-                </div>
+                <input class="numberField" name="bestOf" type="hidden" value="3"/>
 
                 <div class="contentSection">
                     <div class="contentLeft">
@@ -41,8 +33,8 @@
             <p><a target="_blank" href="http://www.quickmtg.com/">quickmtg.com</a></p>
         </div>
     </div>
-    
-    <div class="modal <?=($previousSession?'':'hidden')?>">
+
+    <div class="modal <?= ($previousSession ? '' : 'hidden') ?>">
         <div class="modalContent">
             <h4>Welcome back!</h4>
             <p>It appears that you have a draft that is still active.

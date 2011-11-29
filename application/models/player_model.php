@@ -8,6 +8,12 @@ class Player_model extends CI_Model
     var $wins;
     var $draws;
     var $losses;
+    var $mWins;
+    var $mDraws;
+    var $mLosses;
+    var $opponentMatchWinPerc;
+    var $gameWinPerc;
+    var $opponentGameWinPerc;
     var $matchPoints; //3 for a win, 1 for a draw, 0 for a loss
     var $matchCount; //the  number of matches a player has played in
     var $gamePoints; //
@@ -31,6 +37,9 @@ class Player_model extends CI_Model
         $this->wins=0;
         $this->draws=0;
         $this->losses=0;
+        $this->mWins=0;
+        $this->mDraws=0;
+        $this->mLosses=0;
         
         /*
          * Tiebreaker data
@@ -62,10 +71,15 @@ class Player_model extends CI_Model
         if($wins == 2)
         {
             $this->matchPoints += 3;
+            $this->mWins++;
         }
         else if(($wins == 1 && $losses == 1) || ($wins == 0 && $losses == 0 && $draws == 1))
         {
             $this->matchPoints += 1;
+            $this->mDraws++;
+        }
+        else {
+            $this->mLosses++;
         }
         $this->matchCount++;
         $this->gamePoints += ($wins*3)+($draws*1);
