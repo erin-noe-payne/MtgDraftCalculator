@@ -1,25 +1,29 @@
 <?php
 //Random background image selector
-$extList = array();
-$extList['gif'] = 'image/gif';
-$extList['jpg'] = 'image/jpeg';
-$extList['jpeg'] = 'image/jpeg';
-$extList['png'] = 'image/png';
+try {
+    $extList = array();
+    $extList['gif'] = 'image/gif';
+    $extList['jpg'] = 'image/jpeg';
+    $extList['jpeg'] = 'image/jpeg';
+    $extList['png'] = 'image/png';
 
-$folder = ($_SERVER['DOCUMENT_ROOT']) . 'resources/img/Backgrounds/';
-$fileList = array();
-$handle = opendir($folder);
-while (false !== ( $file = readdir($handle) )) {
-    $file_info = pathinfo($file);
-    if (isset($extList[strtolower($file_info['extension'])])) {
-        $fileList[] = $file;
+    $folder = ($_SERVER['DOCUMENT_ROOT']) . 'resources/img/Backgrounds/';
+    $fileList = array();
+    $handle = opendir($folder);
+    while (false !== ( $file = readdir($handle) )) {
+        $file_info = pathinfo($file);
+        if (isset($extList[strtolower($file_info['extension'])])) {
+            $fileList[] = $file;
+        }
     }
-}
-closedir($handle);
+    closedir($handle);
 
-if (count($fileList) > 0) {
-    $imageNumber = time() % count($fileList);
-    $img = $fileList[$imageNumber];
+    if (count($fileList) > 0) {
+        $imageNumber = time() % count($fileList);
+        $img = $fileList[$imageNumber];
+    }
+} catch (Exception $e) {
+    $img = 'BurningRage.png';
 }
 ?>
 
@@ -65,20 +69,20 @@ if (count($fileList) > 0) {
                     for ($i = 0; $i < count($players); $i++) {
                         $opponent1 = $players[$i]->name;
                         $class = ($i % 4 == 0) ? 'trLight' : 'trDark';
-                        
-                        $scores = array('','','','');
+
+                        $scores = array('', '', '', '');
                         $opp1Drop = '';
                         $opp2Drop = '';
-                        if($draft->scoresForThisRound != null) {
+                        if ($draft->scoresForThisRound != null) {
                             $scores = $draft->scoresForThisRound[$players[$i]->id];
-                            $opp1Drop = $scores[3]==true?'checked="checked"':'';
+                            $opp1Drop = $scores[3] == true ? 'checked="checked"' : '';
                         }
 
-                        
+
                         if (++$i < count($players)) {
                             $opponent2 = $players[$i]->name;
-                            if($draft->scoresForThisRound != null) {
-                                $opp2Drop = $draft->scoresForThisRound[$players[$i]->id][3]==true?'checked="checked"':'true';
+                            if ($draft->scoresForThisRound != null) {
+                                $opp2Drop = $draft->scoresForThisRound[$players[$i]->id][3] == true ? 'checked="checked"' : 'true';
                             }
                             printf(
                                     '<tr class="dataRow %s">
@@ -116,14 +120,14 @@ if (count($fileList) > 0) {
                     <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
                     <input type="submit" value="Go to Round <?= $draft->roundNumber + 1 ?>"/>
                 </form>
-                <?php
-                if ($draft->roundNumber > 1) {
-                    echo '<form class="backButtonForm" action="'.base_url().'index.php/Mtgdc/round" method="post">
-                        <input name="round" type="hidden" value="'.($draft->roundNumber-1).'"/>
+<?php
+if ($draft->roundNumber > 1) {
+    echo '<form class="backButtonForm" action="' . base_url() . 'index.php/Mtgdc/round" method="post">
+                        <input name="round" type="hidden" value="' . ($draft->roundNumber - 1) . '"/>
                         <input type="submit" value="Go Back"/>
                         </form>';
-                }
-                ?>
+}
+?>
                 <form class="alignRight" action="<?= base_url() ?>index.php/Mtgdc/scoreSheet" method="post">
                     <input name="scores" type="hidden"/>
                     <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
