@@ -113,6 +113,8 @@ class Mtgdc extends CI_Controller {
                 $scores = json_decode($_POST['scores'], true);
                 $draft->updateScores($scores);
                 $canPlayNextRound = $draft->sortForMatchmaking();
+            } else if ($roundNumber < $draft->roundNumber) {
+                //$draft->goToBackup();
             }
         }
         //if it was accessed by get and round number is 1

@@ -6,7 +6,7 @@
 $(function() {
     var WINCONDITION = Math.ceil(BESTOF/2);
     
-    $('form').submit(function(e){
+    $('form:not(.backButtonForm)').submit(function(e){
         if(!dataValid()) {
             e.preventDefault();
             alert('Please check the highlighted rows and correct the scores before continuing.')
