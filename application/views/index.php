@@ -11,7 +11,7 @@
             <br/>
             <br/>
             <div>
-                <a href="<?= base_url() ?>index.php/Mtgdc/round"><button>Return to saved draft</button></a>
+                <a href="<?= base_url() ?>index.php/mtgdc/round"><button>Return to saved draft</button></a>
                 <button id="closeModal" class="alignRight">Start a new draft</button>
             </div>
         </div>
@@ -41,7 +41,7 @@
         </div>
         <div class="content">
             <div title="Help" class="helpButtonContainer"><div class="helpButton ui-icon-help ui-icon"></div></div>
-            <form id="draftForm" action="<?= base_url() ?>index.php/Mtgdc/newDraft" method="post">
+            <form id="draftForm" action="<?= base_url() ?>index.php/mtgdc/newDraft" method="post">
 
                 <input class="numberField" name="bestOf" type="hidden" value="3"/>
 

@@ -24,7 +24,7 @@
             </div>
 
             <div class="buttonBar">
-                <form action="<?= base_url() ?>index.php/Mtgdc/round" method="get">
+                <form action="<?= base_url() ?>index.php/mtgdc/round" method="get">
                     <input type="submit" value="Go to Round 1"></input>
                 </form>
             </div>

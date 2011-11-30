@@ -57,7 +57,7 @@ try {
             <br/>
             <br/>
             <div>
-                <a href="<?= base_url() ?>index.php/Mtgdc/scoreSheet"><button>End Draft</button></a>
+                <a href="<?= base_url() ?>index.php/mtgdc/scoreSheet"><button>End Draft</button></a>
 
             </div>
         </div>
@@ -144,20 +144,20 @@ try {
             </div>
 
             <div class="buttonBar">
-                <form class="buttonForm" action="<?= base_url() ?>index.php/Mtgdc/round" method="post">
+                <form class="buttonForm" action="<?= base_url() ?>index.php/mtgdc/round" method="post">
                     <input name="scores" type="hidden"/>
                     <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
                     <input type="submit" value="Go to Round <?= $draft->roundNumber + 1 ?>"/>
                 </form>
                 <?php
                 if ($draft->roundNumber > 1) {
-                    echo '<form class="backButtonForm" action="' . base_url() . 'index.php/Mtgdc/round" method="post">
+                    echo '<form class="backButtonForm" action="' . base_url() . 'index.php/mtgdc/round" method="post">
                         <input name="round" type="hidden" value="' . ($draft->roundNumber - 1) . '"/>
                         <input type="submit" value="Go Back"/>
                         </form>';
                 }
                 ?>
-                <form class="alignRight" action="<?= base_url() ?>index.php/Mtgdc/scoreSheet" method="post">
+                <form class="alignRight" action="<?= base_url() ?>index.php/mtgdc/scoreSheet" method="post">
                     <input name="scores" type="hidden"/>
                     <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
                     <input type="submit" value="End Draft"/>
