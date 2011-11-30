@@ -42,6 +42,9 @@ class Draft_model extends CI_Model {
         $temp->scoresForThisRound = $scores;
         //save the state of the draft
         $this->previousMe = $temp;
+        //set the scores to null
+        $this->scoresForThisRound = null;
+        
 
         
         
