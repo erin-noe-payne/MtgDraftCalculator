@@ -2,6 +2,38 @@
 <body>
     <script type="text/javascript" src="<?= base_url() ?>resources/js/index.js"></script>
 
+
+    <div id="oldDraft" class="modal <?= ($previousSession ? '' : 'hidden') ?>">
+        <div class="modalContent">
+            <h4>Welcome back!</h4>
+            <p>It appears that you have a draft that is still active.
+                Please select whether you would like to return to your saved draft, or start a new one.</p>
+            <br/>
+            <br/>
+            <div>
+                <a href="<?= base_url() ?>index.php/Mtgdc/round"><button>Return to saved draft</button></a>
+                <button id="closeModal" class="alignRight">Start a new draft</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="help" class="modal hidden">
+        <div class="modalContent">
+            <h4>Welcome to the QuickMTG Draft Calculator</h4>
+            <p>Want to know how it all works? Here is a brief overview:</p>
+            <ul>
+                <li>The calculator can be used for any home tournament or draft.</li>
+                <li>To get started, just begin typing in the names of everyone who is participating.</li>
+                <li>Each round is a best of 3 games.</li>
+                <li>Play as many rounds as you like.  When you are finished click the "End Draft" button to go to the final scores.
+                    And if you make a mistake, you can always go back!</li>
+                <li>If the draft calculator runs out of legal pairings, it will force you to end the draft. Sorry!</li>
+                <li>All matchmaking, scoring, and selection of byes is done according to Wizards of the Coast's official 
+                    "<a href="http://www.wizards.com/wpn/Document.aspx?x=Magic_The_Gathering_Tournament_Rules" target="_blank">Magic: The Gathering Tournament Rules.</a>"</li>
+            </ul>
+        </div>
+    </div>
+
     <div id="container">
         <div class="title">
             <h1>QuickMTG</h1>
@@ -30,39 +62,5 @@
                 </div>
             </form>
         </div>
-        <div class="footer">
-            <p><a target="_blank" href="http://www.quickmtg.com/">quickmtg.com</a></p>
-        </div>
-    </div>
 
-    <div id="oldDraft" class="modal <?= ($previousSession ? '' : 'hidden') ?>">
-        <div class="modalContent">
-            <h4>Welcome back!</h4>
-            <p>It appears that you have a draft that is still active.
-                Please select whether you would like to return to your saved draft, or start a new one.</p>
-            <br/>
-            <br/>
-            <div>
-                <a href="<?= base_url() ?>index.php/Mtgdc/round"><button>Return to saved draft</button></a>
-                <button id="closeModal" class="alignRight">Start a new draft</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="help" class="modal hidden">
-        <div class="modalContent">
-            <h4>Welcome to the QuickMTG Draft Calculator</h4>
-            <p>Want to know how it all works? Here is a brief overview:</p>
-            <ul>
-                <li>The calculator can be used for any home tournament or draft.</li>
-                <li>To get started, just begin typing the names of everyone who is participating.</li>
-                <li>Each round is a best of 3 games.</li>
-                <li>Play as many rounds as you like.  When you are finished click the "End Draft" button to go to the final scores.
-                And if you make a mistake, you can always go back!</li>
-                <li>All matchmaking, scoring, and selection of byes is done according to Wizards of the Coast's official 
-                    "<a href="http://www.wizards.com/wpn/Document.aspx?x=Magic_The_Gathering_Tournament_Rules" target="_blank">Magic: The Gathering Tournament Rules.</a>"</li>
-            </ul>
-        </div>
-    </div>
-</body>
 

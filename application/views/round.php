@@ -34,6 +34,35 @@ try {
         var PLAYERS=<?= json_encode($draft->players) ?>;
     </script>
     <script type="text/javascript" src="<?= base_url() ?>resources/js/round.js"></script>
+
+    <div id="help" class="modal hidden">
+        <div class="modalContent">
+            <img class="buttonForm" src="<?= base_url() ?>resources/img/roundHelp.png"/>
+            <br/><h4>Use the score card to fill out match results.  </h4>
+            <p>The number fields, from left to right, represent player 1 wins, draws, and player 2 wins. In the example shown here:
+            <ul>
+                <li>Caitlin has beat Sean 2-0</li>
+                <li>Justin beat Natasha in the first game, and the second ended in a draw</li>
+                <li>Lindsay beat Erin 2-1, and Erin has chosen to drop from the tournament (he will not be placed in following rounds).</li>
+                <li>Chris was given a bye</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal <?= ($canPlayNextRound ? 'hidden' : '') ?>">
+        <div class="modalContent">
+            <h4>Uh oh!</h4>
+            <p>It looks like there are no more legal pairings left. We have to end the draft. 
+                Click the button below to continue to the final score sheet.</p>
+            <br/>
+            <br/>
+            <div>
+                <a href="<?= base_url() ?>index.php/Mtgdc/scoreSheet"><button>End Draft</button></a>
+
+            </div>
+        </div>
+    </div>
+
     <div id="container">
         <div class="title">
             <h1>Round</h1>
@@ -102,8 +131,8 @@ try {
                                 <td><input type="checkbox" %s/></td>
                                 <td><p class="alignRight">%s</p></td>
                                 <td class="borderRight"><input class="numberField" value="%d" disabled="disabled"/></td>
-                                <td><input class="numberField" disabled="disabled"/></td>
-                                <td class="borderLeft"><input class="numberField" disabled="disabled"/></td>
+                                <td><input class="numberField" disabled="disabled" value="%s"/></td>
+                                <td class="borderLeft"><input class="numberField" disabled="disabled" value="%s"/></td>
                                 <td><p class="alignLeft">%s</p></div></div></td>
                                 <td></td>
                                 </tr>', $class, $opp1Drop, $opponent1, $wins, $scores[1], $scores[2], 'BYE'
@@ -120,14 +149,14 @@ try {
                     <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
                     <input type="submit" value="Go to Round <?= $draft->roundNumber + 1 ?>"/>
                 </form>
-<?php
-if ($draft->roundNumber > 1) {
-    echo '<form class="backButtonForm" action="' . base_url() . 'index.php/Mtgdc/round" method="post">
+                <?php
+                if ($draft->roundNumber > 1) {
+                    echo '<form class="backButtonForm" action="' . base_url() . 'index.php/Mtgdc/round" method="post">
                         <input name="round" type="hidden" value="' . ($draft->roundNumber - 1) . '"/>
                         <input type="submit" value="Go Back"/>
                         </form>';
-}
-?>
+                }
+                ?>
                 <form class="alignRight" action="<?= base_url() ?>index.php/Mtgdc/scoreSheet" method="post">
                     <input name="scores" type="hidden"/>
                     <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
@@ -135,36 +164,3 @@ if ($draft->roundNumber > 1) {
                 </form>
             </div>
         </div>
-        <div class="footer">
-            <p><a target="_blank" href="http://www.quickmtg.com/">quickmtg.com</a></p>
-        </div>
-    </div>
-
-    <div id="help" class="modal hidden">
-        <div class="modalContent">
-            <img class="buttonForm" src="<?= base_url() ?>resources/img/roundHelp.png"/>
-            <br/><h4>Use the score card to fill out match results.  </h4>
-            <p>The number fields, from left to right, represent player 1 wins, draws, and player 2 wins. In the example shown here:
-            <ul>
-                <li>Caitlin has beat Sean 2-0</li>
-                <li>Justin beat Natasha in the first game, and the second ended in a draw</li>
-                <li>Lindsay beat Erin 2-1, and Erin has chosen to drop from the tournament (he will not be placed in following rounds).</li>
-                <li>Chris was given a bye</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="modal <?= ($canPlayNextRound ? 'hidden' : '') ?>">
-        <div class="modalContent">
-            <h4>Uh oh!</h4>
-            <p>It looks like there are no more legal pairings left. We have to end the draft. 
-                Click the button below to continue to the final score sheet.</p>
-            <br/>
-            <br/>
-            <div>
-                <a href="<?= base_url() ?>index.php/Mtgdc/scoreSheet"><button>End Draft</button></a>
-
-            </div>
-        </div>
-    </div>
-</body>

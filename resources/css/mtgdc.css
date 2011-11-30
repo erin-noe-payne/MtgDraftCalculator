@@ -54,6 +54,9 @@ p {
 .alighnCenter {
     text-align: center
 }
+.floatLeft {
+    float:left;
+}
 
 /*
 Div & Container formatting
@@ -141,7 +144,8 @@ Div & Container formatting
 .footer {
     text-align: right;
     margin-top: -5px;
-    padding-right: 15px;
+    padding: 0 15px 0 15px;
+
 }
 
 /*
@@ -221,15 +225,27 @@ th, tr, td{
     display:none;
 }
 #showTiebreakers {
-    vertical-align: top;
-    border: 3px solid white;
-    border-left: none;
     display:inline-block;
-    padding-right: 3px;
-    position: relative;
-    left: -4px;
+    height:100%;
+    vertical-align: top;
+    width: 1px;
+    white-space: nowrap;
+    margin: 35px 0 0 -40px; 
+}
+#showTiebreakers p {
+    -moz-transform: rotate(90deg);  /* FF3.5+ */
+       -o-transform: rotate(90deg);  /* Opera 10.5 */
+  -webkit-transform: rotate(90deg);  /* Saf3.1+, Chrome */
+             filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
+         -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+
+}
+#showTiebreakers p:hover{
+    color: rgb(193, 210, 192);
+    cursor: pointer;
 }
 .tableContainer {
+    position: relative;
     display: inline-block;
     margin-left: auto;
     margin-right: auto;

@@ -10,8 +10,6 @@ class Draft_model extends CI_Model {
     var $players;
     var $droppedPlayers;
     var $maxNumberOfRounds;
-    
-    
     var $scoresForThisRound; //the scores that happened this round (this is set right before setting this draft object as the $previousMe of the next draft object)
     var $previousMe; // the previous round
 
@@ -21,8 +19,8 @@ class Draft_model extends CI_Model {
         $this->bestOfGames = 3;
         $this->roundNumber = 0;
         $this->nextPlayerID = 1;
-        $this->scoresForThisRound=null;
-        
+        $this->scoresForThisRound = null;
+
         $this->players = array();
         $this->droppedPlayers = array();
     }
@@ -31,11 +29,9 @@ class Draft_model extends CI_Model {
         array_push($this->players, new Player_model($this->nextPlayerID, $name));
         $this->nextPlayerID++;
     }
-    
-    
-    function goToNextRound($scores)
-    {
-        
+
+    function goToNextRound($scores) {
+
         //deep copy
         $temp = unserialize(serialize($this));
         //save the scores from this round
@@ -44,12 +40,11 @@ class Draft_model extends CI_Model {
         $this->previousMe = $temp;
         //set the scores to null
         $this->scoresForThisRound = null;
-        
 
-        
-        
+
+
+
         $this->updateScores($scores);
-        
     }
 
     function updateScores($score) {
@@ -134,15 +129,19 @@ class Draft_model extends CI_Model {
             $p1OppMatchWinPerc+=max(0.33, $opponent->matchPoints / ($opponent->matchCount * 3));
             $p1OppGameWinPerc+=max(0.33, $opponent->gamePoints / ($opponent->gameCount * 3));
         }
-        $p1OppMatchWinPerc/=count($p1->opponents);
-        $p1OppGameWinPerc/=count($p1->opponents);
+        $p1OppMatchWinPerc/=max(1, count($p1->opponents));
+        $p1OppGameWinPerc/=max(1, count($p1->opponents));
+        $p1OppMatchWinPerc = max(0.33, $p1OppMatchWinPerc);
+        $p1OppGameWinPerc = max(0.33, $p1OppGameWinPerc);
         foreach ($p2->opponents as $id) {
             $opponent = $this->getPlayerById($id);
             $p2OppMatchWinPerc+=max(0.33, $opponent->matchPoints / ($opponent->matchCount * 3));
             $p2OppGameWinPerc+=max(0.33, $opponent->gamePoints / ($opponent->gameCount * 3));
         }
-        $p2OppMatchWinPerc/=count($p1->opponents);
-        $p2OppGameWinPerc/=count($p1->opponents);
+        $p2OppMatchWinPerc/=max(1, count($p1->opponents));
+        $p2OppGameWinPerc/=max(1, count($p1->opponents));
+        $p2OppMatchWinPerc = max(0.33, $p2OppMatchWinPerc);
+        $p2OppGameWinPerc = max(0.33, $p2OppGameWinPerc);
 
         //Second tie-breaker - game win %
         $p1GameWinPerc = $p1->gamePoints / ($p1->gameCount * 3);
