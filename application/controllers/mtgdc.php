@@ -117,7 +117,7 @@ class Mtgdc extends CI_Controller {
             } 
             else if ($roundNumber < $draft->roundNumber) 
             {//reload the previous round
-                if($roundNumber > 1) //dumb check to make sure we dont go back too far
+                if($roundNumber > 0) //dumb check to make sure we dont go back too far
                 {
                     $draft = $draft->previousMe;
                 }
