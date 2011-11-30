@@ -108,13 +108,23 @@ class Mtgdc extends CI_Controller {
 
             $roundNumber = $_POST['round'];
 
-            //In the case of a page reload (and form resubmit) nothing will happen
-            if ($roundNumber > $draft->roundNumber) {
+            //check to see if we need to go to the next round, reload a previous round, or stay on the same round:
+            if ($roundNumber > $draft->roundNumber) 
+            {//go to the next round
                 $scores = json_decode($_POST['scores'], true);
-                $draft->updateScores($scores);
+                $draft->goToNextRound($scores);
                 $canPlayNextRound = $draft->sortForMatchmaking();
-            } else if ($roundNumber < $draft->roundNumber) {
-                //$draft->goToBackup();
+            } 
+            else if ($roundNumber < $draft->roundNumber) 
+            {//reload the previous round
+                if($roundNumber > 1) //dumb check to make sure we dont go back too far
+                {
+                    $draft = $draft->previousMe;
+                }
+            }
+            else
+            {//stay on the same round
+                
             }
         }
         //if it was accessed by get and round number is 1

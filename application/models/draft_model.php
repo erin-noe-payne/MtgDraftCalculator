@@ -10,6 +10,10 @@ class Draft_model extends CI_Model {
     var $players;
     var $droppedPlayers;
     var $maxNumberOfRounds;
+    
+    
+    var $scoresForThisRound; //the scores that happened this round (this is set right before setting this draft object as the $previousMe of the next draft object)
+    var $previousMe; // the previous round
 
     function __construct() {
         parent::__construct();
@@ -25,6 +29,23 @@ class Draft_model extends CI_Model {
     function addPlayer($name) {
         array_push($this->players, new Player_model($this->nextPlayerID, $name));
         $this->nextPlayerID++;
+    }
+    
+    
+    function goToNextRound($scores)
+    {
+        
+        //deep copy
+        $temp = unserialize(serialize($this));
+        //save the scores from this round
+        $temp->scoresForThisRound = $scores;
+        //save the state of the draft
+        $this->previousMe = $temp;
+
+        
+        
+        $this->updateScores($scores);
+        
     }
 
     function updateScores($score) {
