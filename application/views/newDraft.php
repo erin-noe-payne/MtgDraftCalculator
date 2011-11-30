@@ -6,17 +6,6 @@
         </div>
         <div class="content">
             <div class="contentSection">
-                <div class="contentSection">
-                    <div class="contentLeft">
-                        <h4>Rules</h4>
-                        
-                    </div>
-                    <div class="contentRight">
-                        <ul>
-                            <li>Each round is a best of 3.</li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="contentLeft">
                     <h4>Order</h4>
                     <p>Players will sit around a table in the order displayed.</p>

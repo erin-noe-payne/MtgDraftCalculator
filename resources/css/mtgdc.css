@@ -147,7 +147,7 @@ Div & Container formatting
 /*
 Element formatting
 */
-.contentRight ol, ul {
+.contentRight ol, .contentRight ul {
     margin: 0px 0px 0px -42px;
 }
 li {

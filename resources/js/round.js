@@ -40,7 +40,7 @@ $(function() {
     $('.helpButtonContainer').click(function(){
         $('#help').fadeIn('fast');
     })
-    $('.#help').click(function() {
+    $('#help').click(function() {
         $(this).fadeOut('fast'); 
     });
     

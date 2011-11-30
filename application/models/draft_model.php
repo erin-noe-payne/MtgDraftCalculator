@@ -21,7 +21,8 @@ class Draft_model extends CI_Model {
         $this->bestOfGames = 3;
         $this->roundNumber = 0;
         $this->nextPlayerID = 1;
-
+        $this->scoresForThisRound=null;
+        
         $this->players = array();
         $this->droppedPlayers = array();
     }

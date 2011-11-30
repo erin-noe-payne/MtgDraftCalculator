@@ -8,6 +8,7 @@
             <h2>Draft Calculator</h2>
         </div>
         <div class="content">
+            <div title="Help" class="helpButtonContainer"><div class="helpButton ui-icon-help ui-icon"></div></div>
             <form id="draftForm" action="<?= base_url() ?>index.php/Mtgdc/newDraft" method="post">
 
                 <input class="numberField" name="bestOf" type="hidden" value="3"/>
@@ -34,7 +35,7 @@
         </div>
     </div>
 
-    <div class="modal <?= ($previousSession ? '' : 'hidden') ?>">
+    <div id="oldDraft" class="modal <?= ($previousSession ? '' : 'hidden') ?>">
         <div class="modalContent">
             <h4>Welcome back!</h4>
             <p>It appears that you have a draft that is still active.
@@ -45,6 +46,22 @@
                 <a href="<?= base_url() ?>index.php/Mtgdc/round"><button>Return to saved draft</button></a>
                 <button id="closeModal" class="alignRight">Start a new draft</button>
             </div>
+        </div>
+    </div>
+
+    <div id="help" class="modal hidden">
+        <div class="modalContent">
+            <h4>Welcome to the QuickMTG Draft Calculator</h4>
+            <p>Want to know how it all works? Here is a brief overview:</p>
+            <ul>
+                <li>The calculator can be used for any home tournament or draft.</li>
+                <li>To get started, just begin typing the names of everyone who is participating.</li>
+                <li>Each round is a best of 3 games.</li>
+                <li>Play as many rounds as you like.  When you are finished click the "End Draft" button to go to the final scores.
+                And if you make a mistake, you can always go back!</li>
+                <li>All matchmaking, scoring, and selection of byes is done according to Wizards of the Coast's official 
+                    "<a href="http://www.wizards.com/wpn/Document.aspx?x=Magic_The_Gathering_Tournament_Rules" target="_blank">Magic: The Gathering Tournament Rules.</a>"</li>
+            </ul>
         </div>
     </div>
 </body>

@@ -22,7 +22,11 @@ $(function() {
         var li = $(this).closest('li');
         removeLi(li);
     });
-    $('#draftForm').submit(function(){
+    $('#draftForm').submit(function(e){
+        if(!validData()) {
+            alert('This is going to be a boring draft. Try adding some players!')
+            return e.preventDefault();
+        }
         var players=[];
         $.each($('.name'), function() {
             if($.trim($(this).val()) != '') {
@@ -32,11 +36,14 @@ $(function() {
         $('#field_players').val(JSON.stringify(players));
     })
     $('#closeModal').live('click', function(){
-        $('.modal').fadeOut('fast'); 
+        $('#oldDraft').fadeOut('fast'); 
     });
-    //$('.modal').show();
-    
-    
+    $('.helpButtonContainer').click(function(){
+        $('#help').fadeIn('fast');
+    })
+    $('#help').click(function() {
+        $(this).fadeOut('fast'); 
+    });    
     /*
      * Functionality
      */
@@ -53,7 +60,6 @@ $(function() {
             height: 'toggle'
         }, 'fast');
     }
-    
     function removeLi(li) {
         $(li).animate({
             opacity: 'toggle', 
@@ -61,6 +67,12 @@ $(function() {
         }, 'fast', function(){
             $(li).remove();
         })
+    }
+    function validData() {
+        if($('.name').length==0 || $.trim($('.name:first').val())=='') {
+            return false;
+        }
+        return true;
     }
 })
 

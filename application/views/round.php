@@ -30,7 +30,6 @@ if (count($fileList) > 0) {
         var PLAYERS=<?= json_encode($draft->players) ?>;
     </script>
     <script type="text/javascript" src="<?= base_url() ?>resources/js/round.js"></script>
-
     <div id="container">
         <div class="title">
             <h1>Round</h1>
@@ -66,32 +65,44 @@ if (count($fileList) > 0) {
                     for ($i = 0; $i < count($players); $i++) {
                         $opponent1 = $players[$i]->name;
                         $class = ($i % 4 == 0) ? 'trLight' : 'trDark';
+                        
+                        $scores = array('','','','');
+                        $opp1Drop = '';
+                        $opp2Drop = '';
+                        if($draft->scoresForThisRound != null) {
+                            $scores = $draft->scoresForThisRound[$players[$i]->id];
+                            $opp1Drop = $scores[3]==true?'checked="checked"':'';
+                        }
 
+                        
                         if (++$i < count($players)) {
                             $opponent2 = $players[$i]->name;
+                            if($draft->scoresForThisRound != null) {
+                                $opp2Drop = $draft->scoresForThisRound[$players[$i]->id][3]==true?'checked="checked"':'true';
+                            }
                             printf(
                                     '<tr class="dataRow %s">
-                                <td><input type="checkbox"/></td>
+                                <td><input type="checkbox" %s/></td>
                                 <td><p class="alignRight">%s</p></td>
-                                <td class="borderRight"><input class="numberField"/></td>
-                                <td><input class="numberField"/></td>
-                                <td class="borderLeft"><input class="numberField"/></td>
+                                <td class="borderRight"><input class="numberField" value="%s"/></td>
+                                <td><input class="numberField" value="%s"/></td>
+                                <td class="borderLeft"><input class="numberField"  value="%s"/></td>
                                 <td><p class="alignLeft">%s</p></td>
-                                <td><input type="checkbox"/></td>
-                                </tr>', $class, $opponent1, $opponent2
+                                <td><input type="checkbox" %s/></td>
+                                </tr>', $class, $opp1Drop, $opponent1, $scores[0], $scores[1], $scores[2], $opponent2, $opp2Drop
                             );
                         } else {
                             $wins = 2;
                             printf(
                                     '<tr class="dataRow %s">
-                                <td><input type="checkbox"/></td>
+                                <td><input type="checkbox" %s/></td>
                                 <td><p class="alignRight">%s</p></td>
                                 <td class="borderRight"><input class="numberField" value="%d" disabled="disabled"/></td>
                                 <td><input class="numberField" disabled="disabled"/></td>
                                 <td class="borderLeft"><input class="numberField" disabled="disabled"/></td>
                                 <td><p class="alignLeft">%s</p></div></div></td>
                                 <td></td>
-                                </tr>', $class, $opponent1, $wins, 'BYE'
+                                </tr>', $class, $opp1Drop, $opponent1, $wins, $scores[1], $scores[2], 'BYE'
                             );
                         }
                     }
@@ -105,10 +116,14 @@ if (count($fileList) > 0) {
                     <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
                     <input type="submit" value="Go to Round <?= $draft->roundNumber + 1 ?>"/>
                 </form>
-                <form class="backButtonForm" action="<?= base_url() ?>index.php/Mtgdc/round" method="post">
-                    <input name="round" type="hidden" value="<?= $draft->roundNumber - 1 ?>"/>
-                    <input type="submit" value="Go Back"/>
-                </form>
+                <?php
+                if ($draft->roundNumber > 1) {
+                    echo '<form class="backButtonForm" action="'.base_url().'index.php/Mtgdc/round" method="post">
+                        <input name="round" type="hidden" value="'.($draft->roundNumber-1).'"/>
+                        <input type="submit" value="Go Back"/>
+                        </form>';
+                }
+                ?>
                 <form class="alignRight" action="<?= base_url() ?>index.php/Mtgdc/scoreSheet" method="post">
                     <input name="scores" type="hidden"/>
                     <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
@@ -134,7 +149,7 @@ if (count($fileList) > 0) {
             </ul>
         </div>
     </div>
-    
+
     <div class="modal <?= ($canPlayNextRound ? 'hidden' : '') ?>">
         <div class="modalContent">
             <h4>Uh oh!</h4>
@@ -144,7 +159,7 @@ if (count($fileList) > 0) {
             <br/>
             <div>
                 <a href="<?= base_url() ?>index.php/Mtgdc/scoreSheet"><button>End Draft</button></a>
-                
+
             </div>
         </div>
     </div>
