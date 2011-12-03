@@ -141,6 +141,7 @@ class Mtgdc extends CI_Controller {
         //save the draft in the session
         $_SESSION['draft'] = $draft;
 
+        $data['bg_img'] = $this->getRandomBackground();
         $this->load->view('header');
         $this->load->view('round', $data);
         $this->load->view('footer');
@@ -162,6 +163,22 @@ class Mtgdc extends CI_Controller {
         $this->load->view('header');
         $this->load->view('scoreSheet', $data);
         $this->load->view('footer');
+    }
+    
+    public function getRandomBackground()
+    {
+        $images = array(
+            "BlasphemousAct.png",
+            "BurningRage.png",
+            "DeathsHold.png",
+            "EndlessRanks.png",
+            "SelflessCathar.png",
+            "VillageCannibals.png",
+            "Woodland.png");
+        
+        $random = rand(0, count($images)-1);
+        
+        return $images[$random];
     }
 
 }

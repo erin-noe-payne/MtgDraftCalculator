@@ -1,35 +1,4 @@
-<?php/*
-//Random background image selector
-try {
-    $extList = array();
-    $extList['gif'] = 'image/gif';
-    $extList['jpg'] = 'image/jpeg';
-    $extList['jpeg'] = 'image/jpeg';
-    $extList['png'] = 'image/png';
-
-    $folder = ($_SERVER['DOCUMENT_ROOT']) . 'resources/img/Backgrounds/';
-    $fileList = array();
-    $handle = opendir($folder);
-    while (false !== ( $file = readdir($handle) )) {
-        $file_info = pathinfo($file);
-        if (isset($extList[strtolower($file_info['extension'])])) {
-            $fileList[] = $file;
-        }
-    }
-    closedir($handle);
-
-    if (count($fileList) > 0) {
-        $imageNumber = time() % count($fileList);
-        $img = $fileList[$imageNumber];
-    }
-} catch (Exception $e) {
-    $img = 'BurningRage.png';
-}
-<body style="background-image: url(<?= base_url() ?>resources/img/Backgrounds/<?= $img ?>);"> 
-   
- */
-?>
-<body>
+<body style="background-image: url(<?= base_url() ?>resources/img/Backgrounds/<?= $bg_img ?>);">
  <script>
         //PHP -> JS data dump
         var BESTOF=<?= $draft->bestOfGames ?>;

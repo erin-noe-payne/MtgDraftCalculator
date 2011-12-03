@@ -112,6 +112,14 @@ class Draft_model extends CI_Model {
     }
 
     function getRankings() {
+        
+        //add the dropped players back in
+        foreach($this->droppedPlayers as $index => $droppedPlayer)
+        {
+            array_push($this->players, $droppedPlayer);
+            unset($this->droppedPlayers[$index]);
+        }
+        
         usort($this->players, array("Draft_model", "comparePlayers"));
     }
 
