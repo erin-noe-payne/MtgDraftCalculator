@@ -12,6 +12,8 @@ class Draft_model extends CI_Model {
     var $maxNumberOfRounds;
     var $scoresForThisRound; //the scores that happened this round (this is set right before setting this draft object as the $previousMe of the next draft object)
     var $previousMe; // the previous round
+    
+    var $isDone;
 
     function __construct() {
         parent::__construct();
@@ -23,6 +25,8 @@ class Draft_model extends CI_Model {
 
         $this->players = array();
         $this->droppedPlayers = array();
+        
+        $this->isDone = false;
     }
 
     function addPlayer($name) {

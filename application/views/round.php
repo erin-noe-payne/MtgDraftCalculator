@@ -1,4 +1,4 @@
-<?php
+<?php/*
 //Random background image selector
 try {
     $extList = array();
@@ -25,10 +25,12 @@ try {
 } catch (Exception $e) {
     $img = 'BurningRage.png';
 }
+<body style="background-image: url(<?= base_url() ?>resources/img/Backgrounds/<?= $img ?>);"> 
+   
+ */
 ?>
-
-<body style="background-image: url(<?= base_url() ?>resources/img/Backgrounds/<?= $img ?>);">
-    <script>
+<body>
+ <script>
         //PHP -> JS data dump
         var BESTOF=<?= $draft->bestOfGames ?>;
         var PLAYERS=<?= json_encode($draft->players) ?>;

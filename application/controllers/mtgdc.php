@@ -131,6 +131,10 @@ class Mtgdc extends CI_Controller {
         else if ($draft->roundNumber == 0) {
             $canPlayNextRound = $draft->sortForMatchmaking();
         }
+        else if($draft->isDone) //draft is done, send them back to the scoresheet
+        {
+            redirect('mtgdc/scoreSheet');
+        }
 
         $data['draft'] = $draft;
         $data['canPlayNextRound'] = $canPlayNextRound;
@@ -148,6 +152,7 @@ class Mtgdc extends CI_Controller {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $scores = json_decode($_POST['scores'], true);
             $draft->updateScores($scores);
+            $draft->isDone = true;
         }
         $draft->getRankings();
         $data['draft'] = $draft;
