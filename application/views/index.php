@@ -11,7 +11,13 @@
             <br/>
             <br/>
             <div>
-                <a href="<?= base_url() ?>index.php/mtgdc/round"><button>Return to saved draft</button></a>
+                <?php
+                $redirectURL = base_url().'index.php/mtgdc/round';
+                if($previousSession && $draft->isDone) {
+                    $redirectURL = base_url().'index.php/mtgdc/scoresheet';
+                }
+                ?>
+                <a href="<?= $redirectURL ?>"><button>Return to saved draft</button></a>
                 <button id="closeModal" class="alignRight">Start a new draft</button>
             </div>
         </div>

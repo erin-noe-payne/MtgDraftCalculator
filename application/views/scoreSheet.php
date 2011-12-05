@@ -74,7 +74,10 @@
                 </div>
             </div>
             <div class="buttonBar">
-                <a class="alignRight" href="<?= base_url() ?>"><button>Start a new Draft</button></a>
+                    <form class="buttonForm" action="<?= base_url() ?>" method="post">
+                    <input name="newDraft" type="hidden" value="true"/>
+                    <input type="submit" class="alignRight" value="Start a new Draft"/>
+                </form>
             </div>
         </div>
 

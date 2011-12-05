@@ -156,8 +156,8 @@ class Draft_model extends CI_Model {
         $p2OppGameWinPerc = max(0.33, $p2OppGameWinPerc);
 
         //Second tie-breaker - game win %
-        $p1GameWinPerc = $p1->gamePoints / ($p1->gameCount * 3);
-        $p2GameWinPerc = $p2->gamePoints / ($p2->gameCount * 3);
+        $p1GameWinPerc = max(0.33, $p1->gamePoints / ($p1->gameCount * 3));
+        $p2GameWinPerc = max(0.33, $p2->gamePoints / ($p2->gameCount * 3));
 
         $p1->opponentMatchWinPerc = $p1OppMatchWinPerc;
         $p1->gameWinPerc = $p1GameWinPerc;

@@ -29,10 +29,17 @@ class Mtgdc extends CI_Controller {
 
     public function index() {
         session_start();
-
+        
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if($_POST['newDraft']=='true') {
+                unset($_SESSION['draft']);
+            }
+        }
+        
         $previousSession = false;
         if (isset($_SESSION['draft'])) {
             $previousSession = true;
+            $data['draft']=$_SESSION['draft'];
         }
         $data['previousSession'] = $previousSession;
 
@@ -150,15 +157,13 @@ class Mtgdc extends CI_Controller {
     public function scoreSheet() {
         session_start();
         $draft = $_SESSION['draft'];
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$draft->isDone) {
             $scores = json_decode($_POST['scores'], true);
             $draft->updateScores($scores);
-            $draft->isDone = true;
         }
+        $draft->isDone = true;
         $draft->getRankings();
         $data['draft'] = $draft;
-
-        //unset($_SESSION['draft']);
 
         $this->load->view('header');
         $this->load->view('scoreSheet', $data);
