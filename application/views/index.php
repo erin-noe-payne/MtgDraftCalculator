@@ -1,4 +1,3 @@
-
 <body>
     <script type="text/javascript" src="<?= base_url() ?>resources/js/index.js"></script>
 
@@ -12,9 +11,9 @@
             <br/>
             <div>
                 <?php
-                $redirectURL = base_url().'index.php/mtgdc/round';
-                if($previousSession && $draft->isDone) {
-                    $redirectURL = base_url().'index.php/mtgdc/scoresheet';
+                $redirectURL = base_url() . 'index.php/mtgdc/round';
+                if ($previousSession && $draft->isDone) {
+                    $redirectURL = base_url() . 'index.php/mtgdc/scoresheet';
                 }
                 ?>
                 <a href="<?= $redirectURL ?>"><button>Return to saved draft</button></a>
@@ -29,7 +28,7 @@
             <p>Want to know how it all works? Here is a brief overview:</p>
             <ul>
                 <li>The calculator can be used for any home tournament or draft.</li>
-                <li>To get started, just begin typing in the names of everyone who is participating.</li>
+                <li>To get started, just begin typing in the names of everyone who is participating. There is a 12 player limit.</li>
                 <li>Each round is a best of 3 games.</li>
                 <li>Play as many rounds as you like.  When you are finished click the "End Draft" button to go to the final scores.
                     And if you make a mistake, you can always go back!</li>
@@ -58,7 +57,18 @@
                     </div>
                     <div class="contentRight">
                         <ol id="nameList">
-                            <li><input type="text" class="last"/></li>
+                            <li><input type="text" class="last"></input></li>
+                            <li class="hidden"><input type="text" class=""></li>
+                            <li class="hidden"><input type="text" class=""></li>
+                            <li class="hidden"><input type="text" class=""></li>
+                            <li class="hidden"><input type="text" class=""></li>
+                            <li class="hidden"><input type="text" class=""></li>
+                            <li class="hidden"><input type="text" class=""></li>
+                            <li class="hidden"><input type="text" class=""></li>
+                            <li class="hidden"><input type="text" class=""></li>
+                            <li class="hidden"><input type="text" class=""></li>
+                            <li class="hidden"><input type="text" class=""></li>
+                            <li class="hidden final"><input type="text" class=""></li>
                         </ol>
                     </div>
                 </div>

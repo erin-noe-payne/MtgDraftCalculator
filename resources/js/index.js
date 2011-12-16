@@ -43,7 +43,7 @@ $(function() {
     })
     $('#help').click(function() {
         $(this).fadeOut('fast'); 
-    });    
+    });
     /*
      * Functionality
      */
@@ -52,13 +52,11 @@ $(function() {
         $(input).removeClass('last').addClass('name');
         var button = $('<div class="deleteButtonContainer"><div class="deleteButton ui-icon-close ui-icon"></div></div>')
         $(li).append(button);
-        
-        var $listItem = $('<li><input class="last"></input></li>').hide();
-        $('#nameList').append($listItem);
-        $listItem.animate({
-            opacity: 'toggle', 
-            height: 'toggle'
-        }, 'fast');
+        var nextLi = li.next('li');
+        if(nextLi) {
+            nextLi.find('input').addClass('last');
+            nextLi.fadeIn('fast');
+        }
     }
     function removeLi(li) {
         $(li).animate({
@@ -66,7 +64,13 @@ $(function() {
             height: 'toggle'
         }, 'fast', function(){
             $(li).remove();
-        })
+        });
+        var newLi = $('<li class="hidden"><input type="text" class=""></li>');
+        if($('.name').length==12) {
+            newLi.removeClass('hidden');
+            newLi.find('input').addClass('last');
+        }
+        $(li).closest('ol').append(newLi);
     }
     function validData() {
         if($('.name').length==0 || $.trim($('.name:first').val())=='') {

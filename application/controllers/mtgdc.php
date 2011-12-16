@@ -28,6 +28,7 @@ class Mtgdc extends CI_Controller {
     }
 
     public function index() {
+        setcookie("mtgdc", null, time()+60*60*24*365*10);
         session_start();
         
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
