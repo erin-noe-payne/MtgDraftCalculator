@@ -68,17 +68,23 @@ class Player_model extends CI_Model
         $this->losses += $losses;
         
         
-        if($wins == 2)
+        if($wins == 2) //win!
         {
             $this->matchPoints += 3;
             $this->mWins++;
         }
-        else if(($wins == 1 && $losses == 1) || ($wins == 0 && $losses == 0 && $draws == 1))
+        else if($wins == 1 && $draws == 1) //win! (someone played slow...)
+        {
+            $this->matchPoints += 3;
+            $this->mWins++;
+        }
+        else if(($wins == 1 && $losses == 1) || ($wins == 0 && $losses == 0 && $draws == 1)) //draw!
         {
             $this->matchPoints += 1;
             $this->mDraws++;
         }
-        else {
+        else //loss! 
+        {
             $this->mLosses++;
         }
         $this->matchCount++;

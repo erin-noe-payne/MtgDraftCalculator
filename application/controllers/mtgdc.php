@@ -109,9 +109,49 @@ class Mtgdc extends CI_Controller {
 
         session_start();
         //TODO - check for valid session / data, handle appropriately.
-        $draft = $_SESSION['draft'];
-        $canPlayNextRound = true;
+        if(isset($_SESSION['draft']))
+        {
+            $draft = $_SESSION['draft'];
+        }
+        else
+        {
+            $draft = json_decode($_POST['draft'], true);
+        }
+        
+        if($draft->isDone) //draft is done, send them back to the scoresheet
+        {
+            redirect('mtgdc/scoreSheet');
+        }
+        else if ($draft->roundNumber == 0) //first round
+        {
+            $canPlayNextRound = $draft->sortForMatchmaking();
+        }
+        else // one of the middle rounds
+        {
+
+            $roundNumber = $_POST['round'];
+
+            //check to see if we need to go to the next round, reload a previous round, or stay on the same round:
+            if ($roundNumber > $draft->roundNumber) 
+            {//go to the next round
+                $scores = json_decode($_POST['scores'], true);
+                $draft->goToNextRound($scores);
+                $canPlayNextRound = $draft->sortForMatchmaking();
+            } 
+            else if ($roundNumber < $draft->roundNumber) 
+            {//reload the previous round
+                if($roundNumber > 0) //dumb check to make sure we dont go back too far
+                {
+                    $draft = $draft->previousMe;
+                }
+            }
+            else
+            {//stay on the same round
+                
+            }
+        }
         //if rounds was acessed via post.
+        /* Old way of figuring out what logic to use.  Going to try with every hit to this method being a post
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $roundNumber = $_POST['round'];
@@ -143,7 +183,8 @@ class Mtgdc extends CI_Controller {
         {
             redirect('mtgdc/scoreSheet');
         }
-
+         
+         */
         $data['draft'] = $draft;
         $data['canPlayNextRound'] = $canPlayNextRound;
         //save the draft in the session
@@ -157,7 +198,15 @@ class Mtgdc extends CI_Controller {
 
     public function scoreSheet() {
         session_start();
-        $draft = $_SESSION['draft'];
+        if(isset($_SESSION['draft']))
+        {
+            $draft = $_SESSION['draft'];
+        }
+        else
+        {
+            $draft = json_decode($_POST['draft'], true);
+        }
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$draft->isDone) {
             $scores = json_decode($_POST['scores'], true);
             $draft->updateScores($scores);
