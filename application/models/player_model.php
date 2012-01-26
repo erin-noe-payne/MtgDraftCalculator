@@ -63,7 +63,6 @@ class Player_model extends CI_Model
         $losses = $score[2];
         $dropping = $score[3];
         
-        //all the game info
         $this->wins += $wins;
         $this->draws += $draws;
         $this->losses += $losses;
