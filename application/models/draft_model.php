@@ -18,17 +18,34 @@ class Draft_model extends CI_Model {
     function __construct() {
         parent::__construct();
 
-        $this->bestOfGames = 3;
-        $this->roundNumber = 0;
-        $this->nextPlayerID = 1;
-        $this->scoresForThisRound = null;
+        if(func_num_args() == 1)
+        {
+            $draftToCopy = func_get_arg(0);
+            
+            $this->bestOfGames = $draftToCopy->bestOfGames;
+            $this->roundNumber = $draftToCopy->roundNumber;
+            $this->nextPlayerID = $draftToCopy->nextPlayerID;
+            $this->scoresForThisRound = $draftToCopy->scoresForThisRound;
 
-        $this->players = array();
-        $this->droppedPlayers = array();
-        
-        $this->isDone = false;
+            $this->players = $draftToCopy->players;
+            $this->droppedPlayers = $draftToCopy->droppedPlayers;
+
+            $this->isDone = $draftToCopy->isDone;
+        }
+        else
+        {
+            $this->bestOfGames = 3;
+            $this->roundNumber = 0;
+            $this->nextPlayerID = 1;
+            $this->scoresForThisRound = null;
+
+            $this->players = array();
+            $this->droppedPlayers = array();
+
+            $this->isDone = false;
+        }
     }
-
+    
     function addPlayer($name) {
         array_push($this->players, new Player_model($this->nextPlayerID, $name));
         $this->nextPlayerID++;

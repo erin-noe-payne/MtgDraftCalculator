@@ -106,14 +106,12 @@ class Mtgdc extends CI_Controller {
         //if draft object in session is higher than round 1
         //check if POST -- if it is, then incremement round 
         //and do matchmaking
-
-        session_start();
-        //TODO - check for valid session / data, handle appropriately.
-        $draft = $_SESSION['draft'];
+        
+        $draft = $this->getDraft();
+        
         $canPlayNextRound = true;
         //if rounds was acessed via post.
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
             $roundNumber = $_POST['round'];
 
             //check to see if we need to go to the next round, reload a previous round, or stay on the same round:
@@ -156,8 +154,7 @@ class Mtgdc extends CI_Controller {
     }
 
     public function scoreSheet() {
-        session_start();
-        $draft = $_SESSION['draft'];
+        $draft = $this->getDraft();
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$draft->isDone) {
             $scores = json_decode($_POST['scores'], true);
             $draft->updateScores($scores);
@@ -185,6 +182,31 @@ class Mtgdc extends CI_Controller {
         $random = rand(0, count($images)-1);
         
         return $images[$random];
+    }
+    
+    /*
+     * Helper method for getting the draft data
+     * 
+     * -tries to get it from the session first.
+     * -if that fails, gets it from post data
+     * -if that fails, god help us
+     */
+    public function getDraft()
+    {
+         session_start();
+         if(isset ($_SESSION['draft']))
+         {
+            return $_SESSION['draft'];
+         }
+         else if(isset($_POST['draft']))
+         {//Got the draft data from post
+            $draft = new Draft_model(json_decode($_POST['draft']));
+            return $draft;
+         }
+         else
+         { //error - display something and redirect
+            return null;
+         }
     }
 
 }
