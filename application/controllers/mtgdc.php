@@ -134,7 +134,7 @@ class Mtgdc extends CI_Controller {
             }
         }
         //if it was accessed by get and round number is 1
-        else if ($draft->roundNumber == 0) {
+        if ($draft->roundNumber == 0) {
             $canPlayNextRound = $draft->sortForMatchmaking();
         }
         else if($draft->isDone) //draft is done, send them back to the scoresheet

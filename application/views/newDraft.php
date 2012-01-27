@@ -24,8 +24,10 @@
             </div>
 
             <div class="buttonBar">
-                <form action="<?= base_url() ?>index.php/mtgdc/round" method="get">
-                    <input type="submit" value="Go to Round 1"></input>
+                <form action="<?= base_url() ?>index.php/mtgdc/round" method="post">
+                    <input name="draft_object" type="hidden" value='<?=json_encode($draft)?>'/>
+					<input name="round" type="hidden" value="0>"/>
+					<input type="submit" value="Go to Round 1"></input>
                 </form>
             </div>
         </div>

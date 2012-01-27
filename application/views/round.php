@@ -116,7 +116,8 @@
 
             <div class="buttonBar">
                 <form class="buttonForm" action="<?= base_url() ?>index.php/mtgdc/round" method="post">
-                    <input name="scores" type="hidden"/>
+                    <input name="draft_object" type="hidden" value='<?=json_encode($draft)?>'/>
+					<input name="scores" type="hidden"/>
                     <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
                     <input type="submit" value="Go to Round <?= $draft->roundNumber + 1 ?>"/>
                 </form>
@@ -129,6 +130,7 @@
                 }
                 ?>
                 <form class="alignRight" action="<?= base_url() ?>index.php/mtgdc/scoreSheet" method="post">
+					<input name="draft_object" type="hidden" value='<?=json_encode($draft)?>'/>
                     <input name="scores" type="hidden"/>
                     <input name="round" type="hidden" value="<?= $draft->roundNumber + 1 ?>"/>
                     <input type="submit" value="End Draft"/>
