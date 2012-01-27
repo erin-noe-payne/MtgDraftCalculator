@@ -4,7 +4,7 @@ include 'player_model.php';
 
 class Draft_model extends CI_Model {
 
-    private $nextPlayerID;
+    var $nextPlayerID;
     var $bestOfGames;
     var $roundNumber;
     var $players;
@@ -71,7 +71,7 @@ class Draft_model extends CI_Model {
     function updateScores($score) {
 
         foreach ($this->players as $index => $player) {
-            $player->updateScore($score[$player->id]);
+            Player_model::updateScore($score[$player->id], $player);
             $dropping = $score[$player->id][3];
             if ($dropping == true) {
                 $this->dropPlayer($player->id);
@@ -167,8 +167,8 @@ class Draft_model extends CI_Model {
             $p2OppMatchWinPerc+=max(0.33, $opponent->matchPoints / ($opponent->matchCount * 3));
             $p2OppGameWinPerc+=max(0.33, $opponent->gamePoints / ($opponent->gameCount * 3));
         }
-        $p2OppMatchWinPerc/=max(1, count($p1->opponents));
-        $p2OppGameWinPerc/=max(1, count($p1->opponents));
+        $p2OppMatchWinPerc/=max(1, count($p2->opponents));
+        $p2OppGameWinPerc/=max(1, count($p2->opponents));
         $p2OppMatchWinPerc = max(0.33, $p2OppMatchWinPerc);
         $p2OppGameWinPerc = max(0.33, $p2OppGameWinPerc);
 
@@ -399,7 +399,7 @@ class Draft_model extends CI_Model {
                     continue;
                 }
 
-                if ($player->isHigherThan($highestPlayer)) {
+                if (Player_model::isHigherThan($player, $highestPlayer)) {
                     $highestPlayer = $player;
                     $highestIndex = $index;
                 }
@@ -456,7 +456,7 @@ class Pair {
     }
 
     function isValid() {
-        return!$this->player1->hasPlayed($this->player2);
+        return!Player_model::hasPlayed($this->player1, $this->player2);
     }
 
 }

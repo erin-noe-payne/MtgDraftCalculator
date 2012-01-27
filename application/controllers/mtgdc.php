@@ -113,7 +113,6 @@ class Mtgdc extends CI_Controller {
         //if rounds was acessed via post.
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $roundNumber = $_POST['round'];
-
             //check to see if we need to go to the next round, reload a previous round, or stay on the same round:
             if ($roundNumber > $draft->roundNumber) 
             {//go to the next round
@@ -198,9 +197,9 @@ class Mtgdc extends CI_Controller {
          {
             return $_SESSION['draft'];
          }
-         else if(isset($_POST['draft']))
+         else if(isset($_POST['draft_object']))
          {//Got the draft data from post
-            $draft = new Draft_model(json_decode($_POST['draft']));
+            $draft = new Draft_model(json_decode($_POST['draft_object']));
             return $draft;
          }
          else

@@ -55,7 +55,7 @@ class Player_model extends CI_Model
         $this->opponents = array();
     }
     
-    function updateScore($score)
+    static function updateScore($score, &$player)
     {   
         //TODO: bestOf values are hard coded, need to add reference for bestOf
         $wins = $score[0];
@@ -63,61 +63,61 @@ class Player_model extends CI_Model
         $losses = $score[2];
         $dropping = $score[3];
         
-        $this->wins += $wins;
-        $this->draws += $draws;
-        $this->losses += $losses;
+        $player->wins += $wins;
+        $player->draws += $draws;
+        $player->losses += $losses;
         
         
         if($wins == 2)
         {
-            $this->matchPoints += 3;
-            $this->mWins++;
+            $player->matchPoints += 3;
+            $player->mWins++;
         }
-        if($wins == 1 && $draws == 1 && $losses == 0)
+        else if($wins == 1 && $draws == 1 && $losses == 0)
         {
-            $this->matchPoints += 3;
-            $this->mWins++;
+            $player->matchPoints += 3;
+            $player->mWins++;
         }
         else if(($wins == 1 && $losses == 1) || ($wins == 0 && $losses == 0 && $draws == 1))
         {
-            $this->matchPoints += 1;
-            $this->mDraws++;
+            $player->matchPoints += 1;
+            $player->mDraws++;
         }
         else 
         {
-            $this->mLosses++;
+            $player->mLosses++;
         }
-        $this->matchCount++;
-        $this->gamePoints += ($wins*3)+($draws*1);
-        $this->gameCount += $wins+$losses+$draws;
+        $player->matchCount++;
+        $player->gamePoints += ($wins*3)+($draws*1);
+        $player->gameCount += $wins+$losses+$draws;
         
-        $this->dropped = $dropping;
+        $player->dropped = $dropping;
         
     }
     
     //returns true if this player is ranked higher than $otherPlayer
-    function isHigherThan($otherPlayer)
+    static function isHigherThan($player, $otherPlayer)
     {
         //First measure, match points
-        if($this->matchPoints == $otherPlayer->matchPoints)
+        if($player->matchPoints == $otherPlayer->matchPoints)
         {
             //First tiebreaker: opponent win %
-            $thisWinPerc = max($this->matchPoints/($this->matchCount*3),0.33);
+            $thisWinPerc = max($player->matchPoints/($player->matchCount*3),0.33);
             $otherWinPerc = max($otherPlayer->matchPoints/($otherPlayer->matchCount*3),0.33);
             if($thisWinPerc == $otherWinPerc) {
                 
             }
         }
         else {
-            return ($this->matchPoints > $otherPlayer->matchPoints);
+            return ($player->matchPoints > $otherPlayer->matchPoints);
         }
         
     }
     
     //returns true if this player has played $otherPlayer
-    function hasPlayed($otherPlayer)
+    static function hasPlayed($player, $otherPlayer)
     {
-        foreach($this->opponents as $opponentID)
+        foreach($player->opponents as $opponentID)
         {
             if($otherPlayer->id == $opponentID)
             {
